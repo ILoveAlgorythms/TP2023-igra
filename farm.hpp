@@ -1,98 +1,68 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#warning ToDo: разбить на файлы
+enum TypeOfPlayer { Woodworker, Tradesman, Herdsman };
 
-enum type_of_player{
-  woodworker,
-  tradesman,
-  herdsman
+enum TypeOfAnimals { Hen, Cow, Pig };
+
+enum TypeOfBuildings { Bathhouse, House };
+
+class Resources {
+ private:
+  int money_ = 0;
+  int eggs_ = 0;
+  int meat_ = 0;
+  int milk_ = 0;
+
+ public:
+  Resources() = default;
+  ~Resources() = default;
+  Resources& operator=(const Resources& r1) = default;
+  Resources(int k) : money_(k), eggs_(0), meat_(0), milk_(0) {}
+
+  void PayMoney(int x);
+  void GiveEggs(int x); // возможно нужно возращать как раз x, а у самиз ресурсов убавлять?
+  void GiveMeat(int x);
+  void GiveMilk(int x);
+  void GetMilk(int x);
+  void GetEggs(int x);
+  void GetMoney(int x);
+  void GetMeat(int x);
 };
 
-enum type_of_animals{
-  hen,
-  cow,
-  pig
+class Player {
+ private:
+  Resources r_;
+  TypeOfPlayer type_ = Woodworker;
 };
 
-enum type_of_buildings{
-  bathhouse,
-  house
+struct Base {
+ private:
+  Player p_;
+  std::vector<TypeOfAnimals> pets_;
+  std::vector<TypeOfBuildings> buildings_;
+
+ public:
+  Base() = default;
+  ~Base() = default;
+  void Build(TypeOfBuildings t); // убрал, потому что мб мы захотим чето ещё делать когда появляется новое здание
+  void GetAnimal(TypeOfAnimals t);
 };
 
-class resources {
-private:
-  int money = 0;
-  int eggs = 0;
-  int meat = 0;
-  int milk = 0;
-public:
-  resources() = default;
-  ~resources() = default;
-  resources& operator=(const resources& r1) = default;
-  resources(int k) : money(k), eggs(0), meat(0), milk(0) {}
-
-  void pay_money(int x) {}
-  void give_eggs(int x) {}
-  void give_meat(int x) {}
-  void give_milk(int x) {}
-  void get_milk(int x) { milk += x; }
-  void get_eggs(int x) { eggs += x; }
-  void get_money(int x) { money += x; }
-  void get_meat(int x) { meat += x; }
+class Animal {
+ private:
+  int time_ = 0;  // время жизни
+ public:
+  virtual void Feed();
+  virtual void Sell();
+  virtual void GiveResources(int k);
+  virtual void Die();
+  virtual ~Animal() = default;
 };
 
-class player {
-private:
-  resources r;
-  type_of_player type = woodworker;
-};
+class Pig : public Animal {};
 
-struct base {
-private:
-  player p;
-  std::vector<type_of_animals> pets;
-  std::vector<type_of_buildings> buildings;
-public:
-  base() = default;
-  ~base() = default;
-  void build(type_of_buildings t) {
-    buildings.push_back(t);
-  }
-  void get_animal(type_of_animals t) {
-    pets.push_back(t);
-  }
-};
+class Hen : public Animal {};
 
-class animal {
-private:
-  int time = 0; //время жизни
-public:
-  virtual void feed();
-  virtual void sell();
-  virtual void give_resources(int k);
-  virtual void die();
-  virtual ~animal() = default;
-};
-
-class pig : public animal {
-  void feed() override {}
-  void sell() override {}
-  void give_resources(int k) override {}
-  void die() override {}
-};
-
-class hen : public animal {
-  void feed() override {}
-  void sell() override {}
-  void give_resources(int k) override {}
-  void die() override {}
-};
-
-class cow : public animal {
-  void feed() override {}
-  void sell() override {}
-  void give_resources(int k) override {}
-  void die() override {}
-};
-
-
+class Cow : public Animal {};

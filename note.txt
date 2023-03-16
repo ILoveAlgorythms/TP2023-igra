@@ -4,3 +4,9 @@
 cmake .
 cd Cmake
 make
+
+я нашел, как вести ToDO прямо в коде как настоящие круты прогеры:
+https://learn.microsoft.com/ru-ru/cpp/preprocessor/warning?view=msvc-170
+
+думаю нам нужно найти библиотеку (кажется уже есть kwargs.h) чтобы
+можно было делать kwargs как в питоне (foo(znachenie1=1, znachenie2=2))
