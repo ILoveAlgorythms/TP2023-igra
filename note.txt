@@ -5,6 +5,8 @@ cmake .
 cd Cmake
 make
 
+йщзфаоывааыа
+
 я нашел, как вести ToDO прямо в коде как настоящие круты прогеры:
 https://learn.microsoft.com/ru-ru/cpp/preprocessor/warning?view=msvc-170
 
