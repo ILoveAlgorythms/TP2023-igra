@@ -1,23 +1,32 @@
+#pragma once
+#include <unordered_map>
+#include <vector>
+enum ResourceType {
+  Money, Eggs, Meat, Milk
+};
+
 class Resources {
  private:
-  int money_ = 0;
-  int eggs_ = 0;
-  int meat_ = 0;
-  int milk_ = 0;
+  std::unordered_map<ResourceType, int> res_ = {
+    {Money, 0},
+    {Eggs, 0},
+    {Meat, 0},
+    {Milk, 0}
+  };
 
  public:
   Resources() = default;
   ~Resources() = default;
-  Resources& operator=(const Resources& r1) = default;
-  Resources(int k) : money_(k), eggs_(0), meat_(0), milk_(0) {}
+  Resources(ResourceType res, int amount) { res_[res] = (amount); }
+  Resources& operator=(const Resources& r) = default;
 
   void PayMoney(int x);
-  void GiveEggs(int x); // возможно нужно возращать как раз x, а у самиз ресурсов убавлять?
+  void GiveEggs(int x);
   void GiveMeat(int x);
   void GiveMilk(int x);
-  void GetMilk(int x);
-  void GetEggs(int x);
-  void GetMoney(int x);
+  int GetMilk();
+  int GetEggs();
+  int GetMoney();
   void GetMeat(int x);
 };
 
