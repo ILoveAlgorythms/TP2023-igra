@@ -11,6 +11,7 @@ https://learn.microsoft.com/ru-ru/cpp/preprocessor/warning?view=msvc-170
 думаю нам нужно найти библиотеку (кажется уже есть kwargs.h) чтобы
 можно было делать kwargs как в питоне (foo(znachenie1=1, znachenie2=2))
 
+
 что нужно писать:
   логику животных -- о
   рынок -- я

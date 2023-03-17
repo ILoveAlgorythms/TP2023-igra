@@ -5,6 +5,7 @@ enum TypeOfAnimals { Hen, Cow, Pig };
 class Animal {
  private:
   int time_ = 0;  // время жизни
+  int bellyful = 0;
  public:
   virtual void Feed();
   virtual void Sell();
