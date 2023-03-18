@@ -1,5 +1,6 @@
 #include "animal.hpp"
 #include "resources.hpp"
+#include "farm.hpp"
 
 void Animal::Feed() {
   if (bellyful <= 2) {
@@ -7,15 +8,18 @@ void Animal::Feed() {
   } else {
     bellyful = 5;
   }
-  // happiness_level_ = 5;
 }
 
-void Animal::Sell() { // только снимаем с вектора животного, а функция получения денег будет связана с этой за счет паттерна composite
+Base b;
 
+void Animal::Sell() { // только снимаем с вектора животного, а функция получения денег будет связана с этой за счет паттерна composite
+  b.Base::RemoveAnimal(name_);
 }
 
 void Animal::GiveResources() {
-  
+  b.r_ = r1 + b.r_;
 }
 
-//fjhjifchjjifwhjkl
+void Animal::Die() {
+  b.Base::RemoveAnimal(name_);
+}
