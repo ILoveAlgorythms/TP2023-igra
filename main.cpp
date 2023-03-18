@@ -1,13 +1,12 @@
 #include "animal.hpp"
 #include "farm.hpp"
-#include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 int main() {
   sf::RenderWindow window(sf::VideoMode(800, 450), "SAD FARM");
   //sounds:
   sf::SoundBuffer soundBuffer;
-  if (!soundBuffer.loadFromFile("543.mp3")) {
+  if (!soundBuffer.loadFromFile("543.wav")) {
     throw "no file";
   }
 
