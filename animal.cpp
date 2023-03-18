@@ -3,23 +3,11 @@
 #include "farm.hpp"
 
 void Animal::Feed() {
-  if (bellyful <= 2) {
-    bellyful += 2;
+  if (bellyful_ <= 2) {
+    bellyful_ += 2;
   } else {
-    bellyful = 5;
+    bellyful_ = 5;
   }
 }
 
-Base b;
-
-void Animal::Sell() { // только снимаем с вектора животного, а функция получения денег будет связана с этой за счет паттерна composite
-  b.Base::RemoveAnimal(name_);
-}
-
-void Animal::GiveResources() {
-  b.r_ = r1 + b.r_;
-}
-
-void Animal::Die() {
-  b.Base::RemoveAnimal(name_);
-}
+// тут много чего было, но мы вроде решили делать делать это в Base

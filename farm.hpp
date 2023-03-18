@@ -1,16 +1,14 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
-#include "player.hpp"
 #include "animal.hpp"
 
 enum TypeOfBuildings { Bathhouse, House };
 
 struct Base {
  private:
-  Player p_;
-  std::unordered_map<std::string,TypeOfAnimals>Pets_;
-  std::unordered_map<std::string,TypeOfBuildings>Buildings_;
+  std::unordered_map<std::string, Animal&>Pets_;
+  std::unordered_map<std::string, TypeOfBuildings>Buildings_;
 
  public:
   int test = 0;
