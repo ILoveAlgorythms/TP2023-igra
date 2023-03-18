@@ -9,12 +9,14 @@ class Animal {
  public:
   virtual void Feed();
   virtual void Sell();
-  virtual void GiveResources(int k);
+  virtual void GiveResources();
   virtual void Die();
   virtual ~Animal() = default;
 };
 
-class Pig : public Animal {};
+class Pig : public Animal {
+
+};
 
 class Hen : public Animal {};
 

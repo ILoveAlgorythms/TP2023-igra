@@ -18,4 +18,6 @@ struct Resources {
   Resources& operator*(int n) const;
   friend Resources& operator*(int n, Resources& r);
   int& operator[] (ResourceType r);
+  
+
 };
