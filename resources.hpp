@@ -1,32 +1,21 @@
 #pragma once
-#include <unordered_map>
 #include <vector>
 enum ResourceType {
   Money, Eggs, Meat, Milk
 };
+const size_t RESORCES_AMOUNT = 4;
 
-class Resources {
+struct Resources {
  private:
-  std::unordered_map<ResourceType, int> res_ = {
-    {Money, 0},
-    {Eggs, 0},
-    {Meat, 0},
-    {Milk, 0}
-  };
-
+  std::vector<int> res_;
  public:
-  Resources() = default;
+  Resources();
+  Resources(const Resources& r);
+  Resources(std::vector<int> in);
   ~Resources() = default;
-  Resources(ResourceType res, int amount) { res_[res] = (amount); }
-  Resources& operator=(const Resources& r) = default;
-
-  void PayMoney(int x);
-  void GiveEggs(int x);
-  void GiveMeat(int x);
-  void GiveMilk(int x);
-  int GetMilk();
-  int GetEggs();
-  int GetMoney();
-  void GetMeat(int x);
+  Resources& operator+(const Resources& other) const;
+  Resources& operator-(const Resources& other) const;
+  Resources& operator*(int n) const;
+  friend Resources& operator*(int n, Resources& r);
+  int& operator[] (ResourceType r);
 };
-
