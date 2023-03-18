@@ -10,10 +10,10 @@ class Animal {
   std::string name_;
  public:
   virtual void Feed();
-  virtual void Sell();
-  virtual void GiveResources();
-  virtual void Die();
-  virtual ~Animal() = default;
+  // virtual void Sell();
+  // virtual void GiveResources();
+  // virtual void Die();
+  // virtual ~Animal() = default;
 };
 
 class Pig : public Animal {

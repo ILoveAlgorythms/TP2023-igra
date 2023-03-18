@@ -1,6 +1,6 @@
 #include "farm.hpp"
 
-void Base::GetAnimal(std::string s, TypeOfAnimals t) {
+void Base::GetAnimal(std::string s, Animal* t) {
   Pets_[s] = t;
 }
 
