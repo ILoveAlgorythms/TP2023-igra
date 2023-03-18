@@ -1,7 +1,6 @@
 #pragma once
 #include "resources.hpp"
 #include "farm.hpp"
-#include "player.hpp"
 #include "animal.hpp"
 #include <vector>
 #include <ctime>
@@ -9,7 +8,7 @@
 class Market {
  private:
   float bonus_ = 1.0;
-  Player* p_;
+  Player* p_; ??
   std::time_t last_price_update_;
   std::vector<std::pair<TypeOfAnimals, int>> animal_prices_; // животное будет рандомно генерироваться при покупке
   std::vector<int> resources_prices_;

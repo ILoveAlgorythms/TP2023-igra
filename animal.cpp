@@ -1,7 +1,6 @@
 #include "animal.hpp"
 #include "resources.hpp"
 #include "farm.hpp"
-#include "player.hpp"
 
 void Animal::Feed() {
   if (bellyful <= 2) {
@@ -18,7 +17,7 @@ void Animal::Sell() { // только снимаем с вектора живо�
 }
 
 void Animal::GiveResources() {
-  b.p_.r_ = r1 + b.p_.r_;
+  b.r_ = r1 + b.r_;
 }
 
 void Animal::Die() {
