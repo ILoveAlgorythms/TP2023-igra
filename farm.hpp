@@ -1,7 +1,9 @@
+#pragma once
 #include <vector>
 #include <unordered_map>
 #include <string>
 #include "animal.hpp"
+#include "resources.hpp"
 
 enum TypeOfBuildings { Bathhouse, House };
 
@@ -13,6 +15,7 @@ struct Base {
 
  public:
   int test = 0;
+  Resources player_res;
   Base();
   ~Base() = default;
   void Build(std::string s, TypeOfBuildings t); // убрал, потому что мб мы захотим чето ещё делать когда появляется новое здание
@@ -21,5 +24,5 @@ struct Base {
   void RemoveBuilding(std::string s);
   void BreedAnimals(std::string son, Animal* a, Animal*b);
   void SellAnimal(std::string s, Animal* t);
-  void TakeAnimalRes(Animal* t)
+  void TakeAnimalRes(Animal* t);
 };

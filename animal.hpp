@@ -20,8 +20,16 @@ class Animal {
   // virtual ~Animal() = default;
 };
 
-class Pig : public Animal {};
+class Pig : public Animal {
+  //anim_res.res_[Money] = 50;
+};
 
-class Hen : public Animal {};
+class Hen : public Animal {
+  //anim_res.res_[Money] = 10; 
+};
 
-class Cow : public Animal {};
+class Cow : public Animal {
+  // anim_res.res_[Money] = 100;
+  // anim_res.res_[Meat] = 80;
+  
+};
