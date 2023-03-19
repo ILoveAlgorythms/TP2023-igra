@@ -19,4 +19,7 @@ struct Base {
   void GetAnimal(std::string s, Animal* t);
   void RemoveAnimal(std::string s);
   void RemoveBuilding(std::string s);
+  void BreedAnimals(std::string son, Animal* a, Animal*b);
+  void SellAnimal(std::string s, Animal* t);
+  void TakeAnimalRes(Animal* t)
 };

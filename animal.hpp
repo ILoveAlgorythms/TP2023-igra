@@ -1,15 +1,19 @@
 #pragma once
 #include <string>
 #include "resources.hpp"
+#include <time.h>
 
 enum TypeOfAnimals { Hen, Cow, Pig };
+
+enum Gender { Male, Female };
 
 class Animal {
  public: //
   int time_ = 0;  // время жизни
   int bellyful_ = 0;
   std::string name_;
-  Resources anim_r(std::vector<int> = {0, 0, 0, 0});
+  Resources anim_res;
+  Gender gender = Male;
   
  public:
   virtual void Feed();
