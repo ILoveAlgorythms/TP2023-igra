@@ -3,11 +3,11 @@
 enum ResourceType {
   Money, Eggs, Meat, Milk
 };
-const size_t RESORCES_AMOUNT = 4;
 
 struct Resources {
  private:
-  std::vector<int> res_(4, 0);
+  const size_t RESORCES_AMOUNT = 4;
+  std::vector<int> res_;
  public:
   Resources();
   Resources(const Resources& r);
