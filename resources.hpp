@@ -5,7 +5,7 @@ enum ResourceType {
 };
 
 struct Resources {
- private:
+ public:
   const size_t RESORCES_AMOUNT = 4;
   std::vector<int> res_;
  public:

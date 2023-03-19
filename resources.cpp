@@ -2,7 +2,10 @@
 #include <stdexcept>
 
 Resources::Resources() {
-  res_.resize(Resources::RESORCES_AMOUNT, 0);
+  for (int i = 0; i < Resources::RESORCES_AMOUNT; ++i) {
+    res_.push_back(0);
+  }
+  // res_.resize(Resources::RESORCES_AMOUNT, 0);
 }
 
 Resources::Resources(std::vector<int> in) {
