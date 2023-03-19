@@ -6,9 +6,12 @@ int main() {
   sf::RenderWindow window(sf::VideoMode(800, 450), "SAD FARM");
   //sounds:
   sf::SoundBuffer soundBuffer;
-  if (!soundBuffer.loadFromFile("543.wav")) {
+  if (!soundBuffer.loadFromFile("/home/lll/igra/543.ogg")) {
     throw "no file";
   }
+  sf::Sound sound;
+  sound.setBuffer(soundBuffer);
+  sound.setPitch(1.2);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -17,9 +20,6 @@ int main() {
         window.close();
       }
       if (event.type == sf::Event::MouseButtonPressed) {
-        sf::Sound sound;
-        sound.setBuffer(soundBuffer);
-        sound.setPitch(1.2);
         sound.play();
       }
     }
