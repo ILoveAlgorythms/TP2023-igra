@@ -7,7 +7,7 @@ const size_t RESORCES_AMOUNT = 4;
 
 struct Resources {
  private:
-  std::vector<int> res_;
+  std::vector<int> res_(4, 0);
  public:
   Resources();
   Resources(const Resources& r);
@@ -18,6 +18,4 @@ struct Resources {
   Resources& operator*(int n) const;
   friend Resources& operator*(int n, Resources& r);
   int& operator[] (ResourceType r);
-  
-
 };

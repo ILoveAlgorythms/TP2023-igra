@@ -1,6 +1,12 @@
 #include "resources.hpp"
 #include <stdexcept>
 
+Resources::Resources() {
+  for (int i = 0; i < RESORCES_AMOUNT; ++i) {
+    res_.push_back(0);
+  }
+}
+
 Resources::Resources(std::vector<int> in) {
   if (in.size() != RESORCES_AMOUNT) {
     throw std::runtime_error("(*)> missmatched size of vector");

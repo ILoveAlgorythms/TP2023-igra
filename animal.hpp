@@ -1,24 +1,22 @@
 #pragma once
 #include <string>
+#include "resources.hpp"
 
 enum TypeOfAnimals { Hen, Cow, Pig };
 
 class Animal {
- private:
+ public: //
   int time_ = 0;  // время жизни
   int bellyful_ = 0;
   std::string name_;
+  Resources anim_r(std::vector<int> = {0, 0, 0, 0});
+  
  public:
   virtual void Feed();
-  // virtual void Sell();
-  // virtual void GiveResources();
-  // virtual void Die();
   // virtual ~Animal() = default;
 };
 
-class Pig : public Animal {
-
-};
+class Pig : public Animal {};
 
 class Hen : public Animal {};
 

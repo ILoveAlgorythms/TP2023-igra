@@ -16,3 +16,32 @@ void Base::RemoveBuilding(std::string s) {
   Buildings_.erase(s);
 }
 
+void Base::TakeAnimalRes(Animal* t) {
+  player_res[Milk] += t->anim_r[Milk];
+  player_res[Eggs] += t->anim_r[Eggs];
+}
+
+void Base::BreedAnimals(std::string son, Animal* a, Animal*b) {
+  if (a->gender != b->gender) {
+    ::Animal* t;
+    Pets_[son] = t;
+  }
+}
+
+void Base::SellAnimal(std::string s, Animal* t) {
+  player_res[Money] += t->anim_r[Money];
+  Base::RemoveAnimal(s);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
