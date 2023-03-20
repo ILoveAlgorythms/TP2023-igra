@@ -11,7 +11,6 @@ int main() {
   }
   sf::Sound sound;
   sound.setBuffer(soundBuffer);
-  sound.setPitch(1.2);
 
   while (window.isOpen()) {
     sf::Event event;
@@ -21,6 +20,7 @@ int main() {
       }
       if (event.type == sf::Event::MouseButtonPressed) {
         sound.play();
+        sound.setPitch(1.2);
       }
     }
 
