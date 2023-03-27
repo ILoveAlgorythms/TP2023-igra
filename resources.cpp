@@ -2,10 +2,7 @@
 #include <stdexcept>
 
 Resources::Resources() {
-  for (int i = 0; i < Resources::RESORCES_AMOUNT; ++i) {
-    res_.push_back(0);
-  }
-  // res_.resize(Resources::RESORCES_AMOUNT, 0);
+  res_.resize(Resources::RESORCES_AMOUNT, 0);
 }
 
 Resources::Resources(std::vector<int> in) {
@@ -34,12 +31,8 @@ Resources& Resources::operator*(int n) const {
   return ans;
 }
 
-Resources& operator*(int n, Resources& r) {
-  std::vector<int> tmp(r.res_);
-  for (int i = 0; i < tmp.size(); ++i) {
-    tmp[i] = tmp[i] * n;
-  }
-  Resources ans(tmp);
+Resources& operator*(int n, const Resources& r) {
+  Resources ans(r * n);
   return ans;
 }
 
@@ -49,4 +42,22 @@ Resources& Resources::operator-(const Resources& other) const {
 
 int& Resources::operator[] (ResourceType r) {
   return res_[r];
+}
+
+Resources& Resources::operator=(const Resources& other) {
+  res_ = other.res_;
+  return *this;
+}
+
+Resources& Resources::operator+=(const Resources& other) {
+  *this = other + *this;
+  return *this;
+}
+Resources& Resources::operator-=(const Resources& other) {
+  *this = other - *this;
+  return *this;
+}
+Resources& Resources::operator*=(int n) {
+  *this = *this * n;
+  return *this;
 }

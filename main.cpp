@@ -2,11 +2,13 @@
 #include "farm.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
 int main() {
-  sf::RenderWindow window(sf::VideoMode(800, 450), "SAD FARM");
+  #pragma warning (add screen size to config file)
+  sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM");
   //sounds:
   sf::SoundBuffer soundBuffer;
-  if (!soundBuffer.loadFromFile("/home/lll/igra/543.ogg")) {
+  if (!soundBuffer.loadFromFile("../data/audio/543.ogg")) {
     throw "no file";
   }
   sf::Sound sound;
