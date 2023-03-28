@@ -13,7 +13,7 @@ Resources::Resources(std::vector<int> in) {
   res_ = in;
 }
 
-Resources& Resources::operator+(const Resources& other) const {
+Resources Resources::operator+(const Resources& other) const {
   std::vector<int> tmp(this->res_);
   for (int i = 0; i < tmp.size(); ++i) {
     tmp[i] += other.res_[i];
@@ -22,7 +22,7 @@ Resources& Resources::operator+(const Resources& other) const {
   return ans;
 }
 
-Resources& Resources::operator*(int n) const {
+Resources Resources::operator*(int n) const {
   std::vector<int> tmp(this->res_);
   for (int i = 0; i < tmp.size(); ++i) {
     tmp[i] = tmp[i] * n;
@@ -31,12 +31,12 @@ Resources& Resources::operator*(int n) const {
   return ans;
 }
 
-Resources& operator*(int n, const Resources& r) {
+Resources operator*(int n, const Resources& r) {
   Resources ans(r * n);
   return ans;
 }
 
-Resources& Resources::operator-(const Resources& other) const {
+Resources Resources::operator-(const Resources& other) const {
   return (*this + other * -1);
 }
 
@@ -50,11 +50,15 @@ Resources& Resources::operator=(const Resources& other) {
 }
 
 Resources& Resources::operator+=(const Resources& other) {
-  *this = other + *this;
+  for (int i = 0; i < RESORCES_AMOUNT; ++i) {
+    res_[i] += other.res_[i];
+  }
   return *this;
 }
 Resources& Resources::operator-=(const Resources& other) {
-  *this = other - *this;
+  for (int i = 0; i < RESORCES_AMOUNT; ++i) {
+    res_[i] -= other.res_[i];
+  }
   return *this;
 }
 Resources& Resources::operator*=(int n) {
