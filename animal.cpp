@@ -2,12 +2,13 @@
 #include "resources.hpp"
 #include "farm.hpp"
 
+int medim_level_of_bellyful_ = 2;
+int max_level_of_bellyful_ = 5;
+
 void Animal::Feed() {
-  if (bellyful_ <= 2) {
-    bellyful_ += 2;
+  if (bellyful_ <= medim_level_of_bellyful_) {
+    bellyful_ += medim_level_of_bellyful_;
   } else {
-    bellyful_ = 5;
+    bellyful_ = max_level_of_bellyful_;
   }
 }
-
-// тут много чего было, но мы вроде решили делать делать это в Base

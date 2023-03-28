@@ -17,8 +17,8 @@ void Base::RemoveBuilding(std::string s) {
 }
 
 void Base::TakeAnimalRes(Animal* t) {
-  player_res[Milk] += t->anim_res[Milk];
-  player_res[Eggs] += t->anim_res[Eggs];
+  player_res[Milk] += t->anim_res_[Milk];
+  player_res[Eggs] += t->anim_res_[Eggs];
 }
 
 void Base::BreedAnimals(std::string son, Animal* a, Animal*b) {
@@ -29,7 +29,7 @@ void Base::BreedAnimals(std::string son, Animal* a, Animal*b) {
 }
 
 void Base::SellAnimal(std::string s, Animal* t) {
-  player_res[Money] += t->anim_res[Money];
+  player_res[Money] += t->anim_res_[Money];
   Base::RemoveAnimal(s);
 }
 

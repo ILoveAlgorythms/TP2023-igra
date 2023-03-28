@@ -9,15 +9,15 @@ enum Gender { Male, Female };
 
 class Animal {
  public: //
-  int time_ = 0;  // время жизни
+  int time_ = 0;
   int bellyful_ = 0;
   std::string name_;
-  Resources anim_res;
+  Resources anim_res_;
   Gender gender = Male;
   
  public:
   virtual void Feed();
-  // virtual ~Animal() = default;
+  ~Animal() = default;
 };
 
 class Pig : public Animal {
