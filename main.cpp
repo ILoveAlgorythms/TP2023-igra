@@ -13,7 +13,6 @@ int main() {
   }
   sf::Sound sound;
   sound.setBuffer(soundBuffer);
-
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -24,9 +23,15 @@ int main() {
         sound.play();
         sound.setPitch(1.2);
       }
+      if (event.type == sf::Event::KeyPressed) {
+        window.close();
+      }
     }
-
     window.clear();
+    sf::RectangleShape rectangle(sf::Vector2f(400, 400));
+    rectangle.setPosition(200, 200);
+    rectangle.setFillColor({100,100,100});
+    window.draw(rectangle);
     window.display();
   }
   return 0;

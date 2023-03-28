@@ -15,9 +15,9 @@ struct Resources {
   Resources(std::vector<int> in);
   ~Resources() = default;
   Resources& operator=(const Resources& other);
-  Resources& operator+(const Resources& other) const;
-  Resources& operator-(const Resources& other) const;
-  Resources& operator*(int n) const;
+  Resources  operator+(const Resources& other) const;
+  Resources  operator-(const Resources& other) const;
+  Resources  operator*(int n) const;
   Resources& operator+=(const Resources& other);
   Resources& operator-=(const Resources& other);
   Resources& operator*=(int n);
