@@ -7,6 +7,7 @@
 #include <cstdlib> 
 // #include <ctime> 
 #include <random> 
+#include <fstream>
 
 enum TypeOfAnimals { Hen, Cow, Pig };
 
@@ -41,7 +42,7 @@ class Cow : public Animal {
 
 class Snail : public Animal {
  public:
-  Snail() : Animal(), _rng_(_dev_()), _dist_(0, 100){
+  Snail(int posx=-1, int posy=-1) : Animal(), _rng_(_dev_()), _dist_(0, 10000){
     std::srand(std::time(nullptr));
     if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
       throw "cant load sound";
@@ -52,12 +53,19 @@ class Snail : public Animal {
       throw "cant load texture";
     }
     soul_.setTexture(skin_);
+    Pos.first = posx;
+    Pos.second = posy;
+    if (posx == -1) {
+      Pos.first = 100 + int(_dist_(_rng_)) / 90;
+      Pos.second = 100 + int(_dist_(_rng_)) / 90;
+    }
+    
   }
   void Graze(unsigned long int probability=100) { // probability form 0 to 100
-  int x;
+    int x;
     if (probability > _dist_(_rng_)) {
       for (int i = 0; i < 2; ++i) {
-        x = (_dist_(_rng_) - 50) * max_step_;
+        x = int(_dist_(_rng_) - 5000) * max_step_ * 0.01;
         if ((Pos.first + x > 10) && (Pos.first + x < 800)) {
           Pos.first += x;
         }
@@ -65,10 +73,9 @@ class Snail : public Animal {
       }
     }
     soul_.setPosition(sf::Vector2f(Pos.first, Pos.second));
-    // soul_.setScale(sf::Vector2f(Size.first, Size.second));
   }
-  void Moo() {
-    if (moo_probability_ > (_dist_(_rng_))) {
+  void Moo() { // знаю что говнокод, переделаю, когда разберусь с рандомомы
+    if (moo_probability_ > double(_dist_(_rng_))) {
       moo_.play();
     }
   }
@@ -82,16 +89,15 @@ class Snail : public Animal {
   std::string GetSound() {
     return sound_name_;
   }
-  std::pair<int, int> Pos {100, 100};
-  std::pair<int, int> Size {384, 281};
+  std::pair<int, int> Pos;
  private:
   sf::SoundBuffer sound_buffer_;
   std::string sound_name_ = "543.ogg";
   sf::Sound moo_;
-  double moo_probability_ = 0.2;
+  double moo_probability_ = 1;
 
   std::string texture_name_ = "snail on the hillside.png";
-  double max_step_ = .0;
+  double max_step_ = 3;
   sf::Texture skin_;
   sf::Sprite soul_; // beter call
 
