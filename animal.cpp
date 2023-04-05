@@ -12,3 +12,11 @@ void Animal::Feed() {
     bellyful_ = max_level_of_bellyful_;
   }
 }
+
+// void Animal::Graze(float probability=1.0) {
+//   std::srand(std::time(nullptr));
+//     if (probability > (std::rand() / RAND_MAX)) {
+//       Pos.first += (std::rand() / RAND_MAX - 0.5) * max_step_;
+//       Pos.second += (std::rand() / RAND_MAX - 0.5) * max_step_;
+//     }
+// }

@@ -7,31 +7,21 @@ int main() {
   #pragma warning (add screen size to config file)
   sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM");
   //sounds:
-  sf::SoundBuffer soundBuffer;
-  if (!soundBuffer.loadFromFile("../data/audio/543.ogg")) {
-    throw "no file";
-  }
-  sf::Sound sound;
-  sound.setBuffer(soundBuffer);
+
+
+  Snail TinyLittleSnail;
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window.close();
       }
-      if (event.type == sf::Event::MouseButtonPressed) {
-        sound.play();
-        sound.setPitch(1.2);
-      }
-      if (event.type == sf::Event::KeyPressed) {
-        window.close();
-      }
     }
+    TinyLittleSnail.Graze(90);
+    // TinyLittleSnail.Moo();
+
     window.clear();
-    sf::RectangleShape rectangle(sf::Vector2f(400, 400));
-    rectangle.setPosition(200, 200);
-    rectangle.setFillColor({100,100,100});
-    window.draw(rectangle);
+    window.draw(TinyLittleSnail.GetSprite());
     window.display();
   }
   return 0;
