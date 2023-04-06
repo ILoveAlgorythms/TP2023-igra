@@ -6,16 +6,16 @@
 
 int main() {
   #pragma warning (add screen size to config file)
-  sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM");
+  sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM"); // делаем окно с заданными размерами и названием
   std::vector<Snail*> tinyLitlleSnails;
   // std::ofstream log ("../.log");
 
   while (window.isOpen()) {
     sf::Event event;
-    while (window.pollEvent(event)) {
+    while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
       if (event.type == sf::Event::Closed) {
         window.close();
-      } else if (event.type == sf::Event::KeyPressed) {
+      } else if (event.type == sf::Event::KeyPressed) { // тут вроде по названию понятно
         if (event.key.code == sf::Keyboard::G) {
           delete tinyLitlleSnails.back();
           tinyLitlleSnails.pop_back();
@@ -28,11 +28,11 @@ int main() {
         }
       }
     }
-    window.clear();
+    window.clear(); // стираем окно
     for (auto* i : tinyLitlleSnails) {
       i->Moo();
       i->Graze(9);
-      window.draw(i->GetSprite());
+      window.draw(i->GetSprite()); // draw -- нарисовать спрайт на окне
     }
     window.display();
   }
