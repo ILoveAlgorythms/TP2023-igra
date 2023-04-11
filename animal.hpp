@@ -22,6 +22,7 @@ class Animal {
   Gender gender = Male;
   
  public:
+  Animal(int posx = -1, int posy = -1);
   virtual void Feed();
   virtual ~Animal() = default;
 };
@@ -58,8 +59,8 @@ class Snail : public Animal {
       Pos.first = 100 + int(_dist_(_rng_)) / 90;
       Pos.second = 100 + int(_dist_(_rng_)) / 90;
     }
-    
   }
+
   void Graze(unsigned long int probability=100) { // probability form 0 to 100
     int x;
     if (probability > _dist_(_rng_)) {
