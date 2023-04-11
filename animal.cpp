@@ -13,12 +13,11 @@ void Animal::Feed() {
   }
 }
 
-Animal(int posx = -1, int posy = -1) : Animal(), _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
+Animal::Animal(int posx, int posy) : _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
   if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
     throw "cant load sound";
   }
   moo_.setBuffer(sound_buffer_); // устанавливаем, что будем проигрывать
-
   if(!skin_.loadFromFile("../data/texture/" + texture_name_)) {
     throw "cant load texture";
   }
@@ -31,10 +30,33 @@ Animal(int posx = -1, int posy = -1) : Animal(), _rng_(_dev_()), _dist_(0, 10000
   }
 }
 
-// void Animal::Graze(float probability=1.0) {
-//   std::srand(std::time(nullptr));
-//     if (probability > (std::rand() / RAND_MAX)) {
-//       Pos.first += (std::rand() / RAND_MAX - 0.5) * max_step_;
-//       Pos.second += (std::rand() / RAND_MAX - 0.5) * max_step_;
-//     }
-// }
+void Animal::Graze(unsigned long int probability=100) { // probability form 0 to 100
+  int x;
+  if (probability > _dist_(_rng_)) {
+    for (int i = 0; i < 2; ++i) {
+      x = int(_dist_(_rng_) - 5000) * max_step_ * 0.01;
+      if ((Pos.first + x > 10) && (Pos.first + x < 800)) {
+        Pos.first += x;
+      }
+      std::swap(Pos.first, Pos.second);
+    }
+  }
+  soul_.setPosition(sf::Vector2f(Pos.first, Pos.second)); // устанавливаем координаты у спрайта
+}
+
+void Animal::Moo() {
+  if (moo_probability_ > double(_dist_(_rng_))) {
+    moo_.play();
+  }
+}
+
+sf::Sprite& Animal::GetSprite() {
+  return soul_;
+}
+
+std::string Animal::GetTexture() {
+  return texture_name_;
+}
+std::string Animal::GetSound() {
+  return sound_name_;
+}
