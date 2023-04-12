@@ -1,25 +1,25 @@
+#pragma once
+#include <iostream>
 #include <fstream>
 #include "farm.hpp"
 
-// void saveGame(Data& d) {
-//   std::ofstream outFile("savegame.dat");
-//   if (outFile.is_open()) {        
-//     outFile << d.param1 << '\n';
-//     outFile << d.param2 << '\n';
-//     outFile << d.param3 << '\n';
-//     outFile.close();
-//   }
-// }
-
-// void loadGame(Data& d) {
-//     std::ifstream inFile("savegame.dat");
-//     if (inFile.is_open()) {
-//         inFile >> d.param1;
-//         inFile >> d.param2;
-//         inFile >> d.param3;
-//         inFile.close();
-//     }
-// }
+void Save_data(Base& base) {
+  std::ofstream out;
+  out.open("data.txt");
+  if (out.is_open()) {
+    out << "Animals:" << std::endl;
+    for (auto it = base.Pets_.begin(); it != base.Pets_.end(); it++) {
+      out << (it->first) << " "; 
+      out << (it->second) << std::endl;
+    }
+    out << "Buildings:" << std::endl;
+    for (auto it = base.Buildings_.begin(); it != base.Buildings_.end(); it++) {
+      out << (it->first) << " "; 
+      out << (it->second) << std::endl;
+    }
+  }
+  out.close();
+}
 
 
 

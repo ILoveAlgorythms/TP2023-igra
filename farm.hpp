@@ -8,7 +8,7 @@
 enum TypeOfBuildings { Bathhouse, House };
 
 struct Base {
- private:
+ public:
   std::unordered_map<std::string, Animal*>Pets_; 
   std::unordered_map<std::string, TypeOfBuildings>Buildings_;
 
