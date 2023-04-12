@@ -1,16 +1,6 @@
-#include "animal.hpp"
-#include "farm.hpp"
 #include "game.hpp"
-// #include <SFML/Graphics.hpp>
-// #include <SFML/Audio.hpp>
-// #include <fstream>
 
-int main() {
-  #pragma warning (add screen size to config file)
-  sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM"); // делаем окно с заданными размерами и названием
-  std::vector<Snail*> tinyLitlleSnails;
-  // std::ofstream log ("../.log");
-
+void Game::Menu() {
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
@@ -37,6 +27,4 @@ int main() {
     }
     window.display();
   }
-  return 0;
 }
-
