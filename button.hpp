@@ -11,8 +11,8 @@ class Button {
 
 template<typename T>
 class AnimalButton :public Button {
- private:
-  T
- public:
+//  private:
+//   T
+//  public:
   
-}
+};
