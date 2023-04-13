@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-void Menu(sf::RenderWindow& window) {
+void MainMenu(sf::RenderWindow& window) {
 	sf::Texture exit_, exchange_, my_farm_;
 	exit_.loadFromFile("../data/pics_for_menu/exit.png");
 	exchange_.loadFromFile("../data/pics_for_menu/exchange.png");
