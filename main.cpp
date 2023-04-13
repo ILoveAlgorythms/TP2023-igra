@@ -4,9 +4,12 @@
 // #include <SFML/Graphics.hpp>
 // #include <SFML/Audio.hpp>
 // #include <fstream>
+#include "main_menu.h"
 
 int main() {
   #pragma warning (add screen size to config file)
+  sf::RenderWindow window(sf::VideoMode(1600, 900), "Main menu of Sad Farm");
+	MainMenu(window);
   sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM"); // делаем окно с заданными размерами и названием
   std::vector<Snail*> tinyLitlleSnails;
 
