@@ -20,9 +20,9 @@ void MainMenu(sf::RenderWindow& window) {
 		menuNum = 0;
 		window.clear(sf::Color(100, 100, 100));
  
-		if (sf::IntRect(100, 200, 100, 100).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Black); menuNum = 1; }
-		if (sf::IntRect(100, 400, 100, 100).contains(sf::Mouse::getPosition(window))) { menu2.setColor(sf::Color::Black); menuNum = 2; }
-		if (sf::IntRect(100, 600, 100, 100).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Black); menuNum = 3; }
+		if (sf::IntRect(100, 200, 100, 30).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Black); menuNum = 1; }
+		if (sf::IntRect(100, 400, 100, 30).contains(sf::Mouse::getPosition(window))) { menu2.setColor(sf::Color::Black); menuNum = 2; }
+		if (sf::IntRect(100, 600, 100, 30).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Black); menuNum = 3; }
  
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 			window.close(); isMenu = false;
