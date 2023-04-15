@@ -1,8 +1,8 @@
 #include "animal.hpp"
-#include "farm.hpp"
-#include "game.hpp"
-// #include <SFML/Graphics.hpp>
-// #include <SFML/Audio.hpp>
+// #include "farm.hpp"
+// #include "game.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 // #include <fstream>
 #include "main_menu.h"
 
@@ -40,6 +40,9 @@ int main() {
       window.draw(i->GetSprite()); // draw -- нарисовать спрайт на окне
     }
     window.display();
+  }
+  for(auto* i: tinyLitlleSnails) {
+    delete i;
   }
   return 0;
 }
