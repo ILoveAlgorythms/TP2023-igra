@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 // #include <fstream>
-#include "main_menu.h"
+#include "main_menu.hpp"
 
 int main() {
   #pragma warning (add screen size to config file)

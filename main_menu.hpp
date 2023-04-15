@@ -1,0 +1,36 @@
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
+void MainMenu(sf::RenderWindow& window) {
+  sf::Texture exit_, exchange_, my_farm_;
+  exit_.loadFromFile("../data/pics_for_menu/exit.png");
+  exchange_.loadFromFile("../data/pics_for_menu/exchange.png");
+  my_farm_.loadFromFile("../data/pics_for_menu/my_farm.png");
+  sf::Sprite menu1(exit_), menu2(exchange_), menu3(my_farm_);
+  bool isMenu = 1;
+  int menuNum = 0;
+  menu1.setPosition(100, 200);
+  menu2.setPosition(100, 400);
+  menu3.setPosition(100, 600);
+  
+  while (isMenu) {
+    menu1.setColor(sf::Color::White);
+    menu2.setColor(sf::Color::White);
+    menu3.setColor(sf::Color::White);
+    menuNum = 0;
+    window.clear(sf::Color(100, 100, 100));
+  sf::Event event;
+  while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
+   if (event.type == sf::Event::KeyPressed) {
+    window.close(); isMenu = false;
+   }
+   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+      isMenu = false;
+    }
+  }
+  window.draw(menu1);
+  window.draw(menu2);
+  window.draw(menu3);
+  window.display();
+  }
+}
