@@ -19,12 +19,16 @@ void MainMenu(sf::RenderWindow& window) {
     menu3.setColor(sf::Color::White);
     menuNum = 0;
     window.clear(sf::Color(100, 100, 100));
+    if (sf::IntRect(100, 200, 30, 100).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
+	  if (sf::IntRect(100, 400, 30, 100).contains(sf::Mouse::getPosition(window))) { menu2.setColor(sf::Color::Blue); menuNum = 2; }
+		if (sf::IntRect(100, 600, 30, 100).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
   sf::Event event;
   while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
-   if (event.type == sf::Event::KeyPressed) {
-    window.close(); isMenu = false;
-   }
-   if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    if (event.type == sf::Event::KeyPressed && menuNum == 1) {
+      isMenu = false;
+      // Field(window);
+    }
+    if (event.type == sf::Event::MouseButtonPressed) {
       isMenu = false;
     }
   }
