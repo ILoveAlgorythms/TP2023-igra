@@ -10,6 +10,7 @@
 int main() {
   #pragma warning (add screen size to config file)
   sf::RenderWindow window(sf::VideoMode(1600, 900), "Main menu of Sad Farm");
+  window.setVerticalSyncEnabled(true);
 	MainMenu(window);
   Field(window);
 }

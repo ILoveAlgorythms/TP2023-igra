@@ -13,7 +13,9 @@ void Animal::Feed() {
   }
 }
 
-Animal::Animal(int posx, int posy) : _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
+Animal::Animal(int posx, int posy, std::string sound_name, 
+std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
+ sound_name_(sound_name), texture_name_(texture_name) { // устанавливаем диапазон рандомайзера
   std::cout << "hello";
   if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
     throw "cant load sound";
@@ -45,4 +47,22 @@ void Animal::Moo() {
   if (moo_probability_ > double(_dist_(_rng_))) {
     moo_.play();
   }
+}
+
+
+Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png") {
+  frames_.resize(8);
+  for (int i = 0; i < 8; ++i) {
+    // .loadFromFile("../data/texture/cow" + std::to_string(i) + ".png");
+    if(!frames_[i].loadFromFile("../data/texture/cow" + std::to_string(i) + ".png")) {
+      throw "cant load texture";
+    }
+  }
+  soul_.setScale(0.2, 0.2);
+}
+
+sf::Sprite& Cow::GetSprite() {
+  current_frame_number_ = (current_frame_number_ + 1) % (8 * 10);
+  soul_.setTexture(frames_[current_frame_number_ / 10]);
+  return soul_;
 }

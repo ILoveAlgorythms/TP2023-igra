@@ -5,10 +5,10 @@
 #include <SFML/Audio.hpp>
 // #include <fstream>
 // #include "main_menu.hpp"
-
+#include "legacy_snail.hpp"
 
 void Field(sf::RenderWindow& window) {
-  std::vector<Snail*> tinyLitlleSnails;
+  std::vector<Cow*> tinyLitlleSnails;
   // std::ofstream log ("../.log");
   while (window.isOpen()) {
     sf::Event event;
@@ -24,7 +24,7 @@ void Field(sf::RenderWindow& window) {
         if (event.mouseButton.button == sf::Mouse::Left) {
           int x = sf::Mouse::getPosition(window).x;
           int y = sf::Mouse::getPosition(window).y;
-          tinyLitlleSnails.push_back(new Snail(x, y));
+          tinyLitlleSnails.push_back(new Cow(x, y));
         }
       }
     }
