@@ -19,7 +19,7 @@ class Market {
  private:
   float bonus_ = 1.0;
   std::time_t last_price_update_;
-  std::vector<std::pair<TypeOfAnimals, int>> animal_prices_; // животное будет рандомно генерироваться при покупке
+  // std::vector<std::pair<TypeOfAnimals, int>> animal_prices_; // животное будет рандомно генерироваться при покупке
   std::vector<int> resources_prices_;
   void UpdatePrices();
 };
