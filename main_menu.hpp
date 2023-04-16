@@ -1,7 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-void MainMenu(sf::RenderWindow& window) {
+enum TypeOfScreen {menu_screen, field_screen, exchange_screen};
+
+TypeOfScreen MainMenu(sf::RenderWindow& window) {
   sf::Texture exit_, exchange_, my_farm_;
   exit_.loadFromFile("../data/pics_for_menu/exit.png");
   exchange_.loadFromFile("../data/pics_for_menu/exchange.png");
@@ -19,17 +21,24 @@ void MainMenu(sf::RenderWindow& window) {
     menu3.setColor(sf::Color::White);
     menuNum = 0;
     window.clear(sf::Color(100, 100, 100));
-    if (sf::IntRect(100, 200, 30, 100).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
-	  if (sf::IntRect(100, 400, 30, 100).contains(sf::Mouse::getPosition(window))) { menu2.setColor(sf::Color::Blue); menuNum = 2; }
-		if (sf::IntRect(100, 600, 30, 100).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
+    if (sf::IntRect(100, 200, 100, 30).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
+	  if (sf::IntRect(100, 400, 100, 30).contains(sf::Mouse::getPosition(window))) { menu2.setColor(sf::Color::Blue); menuNum = 2; }
+		if (sf::IntRect(100, 600, 100, 30).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
   sf::Event event;
   while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
-    if (event.type == sf::Event::KeyPressed && menuNum == 1) {
+    if (event.type == sf::Event::KeyPressed) {
       isMenu = false;
-      // Field(window);
     }
     if (event.type == sf::Event::MouseButtonPressed) {
       isMenu = false;
+      switch(menuNum) {
+        case 2:
+          return exchange_screen;
+        case 3:
+          return field_screen;
+        default:
+          return menu_screen;
+      }
     }
   }
   window.draw(menu1);
@@ -37,4 +46,5 @@ void MainMenu(sf::RenderWindow& window) {
   window.draw(menu3);
   window.display();
   }
+  return menu_screen;
 }
