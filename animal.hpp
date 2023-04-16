@@ -8,22 +8,42 @@
 // #include <ctime> 
 #include <random> 
 #include <fstream>
+#include <iostream>
 
-enum TypeOfAnimals { Hen, Cow, Pig };
+// enum TypeOfAnimals { Hen, Cow, Pig };
 
 enum Gender { Male, Female };
 
 class Animal {
- public: //
+ public:
+  Animal(int posx, int posy);
+  virtual void Feed();
+  virtual ~Animal() = default;
+  virtual void Graze(unsigned long int probability);
+  virtual void Moo();
+  virtual sf::Sprite& GetSprite() { return soul_; }
+  virtual std::string GetTexture() { return texture_name_; }
+  virtual std::string GetSound() { return sound_name_; }
+
+ protected:
   int time_ = 0;
   int bellyful_ = 0;
   std::string name_;
   Resources anim_res_;
-  Gender gender = Male;
-  
- public:
-  virtual void Feed();
-  virtual ~Animal() = default;
+  Gender gender_ = Male;
+  sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
+  std::string sound_name_;
+  sf::Sound moo_; // через это звук проигрывается
+  double moo_probability_ = 1;
+
+  std::string texture_name_;
+  double max_step_ = 3;
+  sf::Texture skin_; // в эту штуку загружаем изображение
+  sf::Sprite soul_; // сущность, которая будет отрисовываться 
+
+  std::random_device _dev_; // штука для рандомайзера
+  std::mt19937 _rng_;
+  std::uniform_int_distribution<std::mt19937::result_type> _dist_;
 };
 
 class Pig : public Animal {
@@ -35,14 +55,16 @@ class Hen : public Animal {
 };
 
 class Cow : public Animal {
-  // anim_res.res_[Money] = 100;
-  // anim_res.res_[Meat] = 80;
-  
+ public:
+  Cow(int posx, int posy) : Animal(posx, posy) { std::cout << "hello";}
+ private:
+  std::string texture_name_ = "cow1.png";
+  std::string sound_name_ = "cow.wav";
 };
 
-class Snail : public Animal {
+class Snail {
  public:
-  Snail(int posx=-1, int posy=-1) : Animal(), _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
+  Snail(int posx=0, int posy=0) : _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
     if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
       throw "cant load sound";
     }
@@ -52,16 +74,12 @@ class Snail : public Animal {
       throw "cant load texture";
     }
     soul_.setTexture(skin_); // устанавливаем текстуру спрайту
-    Pos.first = posx;
-    Pos.second = posy;
-    if (posx == -1) { // если позиция не задана, делаем рандомную
-      Pos.first = 100 + int(_dist_(_rng_)) / 90;
-      Pos.second = 100 + int(_dist_(_rng_)) / 90;
-    }
     
+    soul_.setPosition(sf::Vector2f(posx, posy));
   }
   void Graze(unsigned long int probability=100) { // probability form 0 to 100
     int x;
+    std::pair<int, int> Pos = {soul_.getPosition().x, soul_.getPosition().y};
     if (probability > _dist_(_rng_)) {
       for (int i = 0; i < 2; ++i) {
         x = int(_dist_(_rng_) - 5000) * max_step_ * 0.01;
@@ -88,10 +106,9 @@ class Snail : public Animal {
   std::string GetSound() {
     return sound_name_;
   }
-  std::pair<int, int> Pos;
  private:
   sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
-  std::string sound_name_ = "543.ogg";
+  std::string sound_name_ = "snail.ogg";
   sf::Sound moo_; // через это звук проигрывается
   double moo_probability_ = 1;
 

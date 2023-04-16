@@ -12,7 +12,7 @@ int main() {
 	MainMenu(window);
   // sf::RenderWindow window(sf::VideoMode(1600, 900), "SAD FARM"); // делаем окно с заданными размерами и названием
   std::vector<Snail*> tinyLitlleSnails;
-
+  std::vector<Cow*> cows;
   // std::ofstream log ("../.log");
 
   while (window.isOpen()) {
@@ -24,6 +24,11 @@ int main() {
         if (event.key.code == sf::Keyboard::G) {
           delete tinyLitlleSnails.back();
           tinyLitlleSnails.pop_back();
+        }
+        if (event.key.code == sf::Keyboard::H) {
+          int x = sf::Mouse::getPosition(window).x;
+          int y = sf::Mouse::getPosition(window).y;
+          cows.push_back(new Cow(x, y));
         }
       } else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
