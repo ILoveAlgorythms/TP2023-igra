@@ -24,7 +24,7 @@ TypeOfScreen MainMenu(sf::RenderWindow& window) {
   sf::Event event;
   while (window.pollEvent(event)) { // смотрим поочередно на все события, которые у нас произошли
     if (menu1.getTextureRect().contains(sf::Mouse::getPosition(window))) { 
-      menu1.(sf::Color::Blue);
+      menu1.setColor(sf::Color::Blue);
       menuNum = 1; 
     }
 	  if (menu2.getTextureRect().contains(sf::Mouse::getPosition(window))) { 
