@@ -29,24 +29,30 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
   mtext.sf::Text::setOutlineColor(border_color);
 };
 
+void Market() {
+  sf::RenderWindow TradePlatform(sf::VideoMode::getDesktopMode(), L"Рынок", sf::Style::Fullscreen);
+  float width = sf::VideoMode::getDesktopMode().width;
+  float height = sf::VideoMode::getDesktopMode().height;
+  sf::RectangleShape background(sf::Vector2f(width, height));
+  sf::Texture texture_market;
+  if (!texture_market.loadFromFile("../data/texture/market2.jpg")) return;
+  background.setTexture(&texture_market);
+  while (TradePlatform.isOpen()) {
+    sf::Event event1;
+    while (TradePlatform.pollEvent(event1)) {
+      if (event1.type == sf::Event::KeyPressed) TradePlatform.close();
+    }
+    TradePlatform.clear();
+    TradePlatform.draw(background);
+    TradePlatform.display();
+  }
+}
+
 void GameStart() {
   sf::RenderWindow Play(sf::VideoMode::getDesktopMode(), L"поле", sf::Style::Fullscreen);
   Field(Play);
-  // sf::RectangleShape background(sf::Vector2f(100, 100));
-  // sf::Texture texture_play;
-  // //
-  // background.setTexture(&texture_play);
-
-  // while (Play.isOpen()) {
-  //   sf::Event event1;
-  //   while (Play.pollEvent(event1)) {
-  //     if (event1.type == sf::Event::KeyPressed) Play.close();
-  //   }
-  // }
-  // Play.clear();
-  // Play.draw(background);
-  // Play.display();
 }
+
 int main() {
   sf::RenderWindow window;
   window.create(sf::VideoMode::getDesktopMode(), L"гама", sf::Style::Default);
@@ -76,8 +82,8 @@ int main() {
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
             case 0: GameStart();
-            case 1: window.close();
-            // case 1: Market();
+            // case 1: window.close();
+            case 1: Market();
             case 2: window.close();
           }
         }
