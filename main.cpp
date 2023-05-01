@@ -31,7 +31,7 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
 
 void GameStart() {
   sf::RenderWindow Play(sf::VideoMode::getDesktopMode(), L"Menu", sf::Style::Fullscreen);
-  sf::RectangleShape background(sf::Vector2f(1000, 1000));
+  sf::RectangleShape background(sf::Vector2f(100, 100));
   sf::Texture texture_play;
   //
   background.setTexture(&texture_play);
@@ -54,15 +54,15 @@ int main() {
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
   sf::Texture texture_window;
-  texture_window.loadFromFile("../data/texture/menu1.png");
+  if (!texture_window.loadFromFile("../data/texture/menu1.jpeg")) return 15;
   background.setTexture(&texture_window);
   sf::Font font;
-  font.loadFromFile("../data/shrift.ttf");
+  if (!font.loadFromFile("../data/shrift.ttf")) return 20;
   sf::Text Titul;
   Titul.setFont(font);
-  InitText(Titul, 480, 50, L"Грустная ферма", 150, sf::Color(200, 100, 0), 3);
+  InitText(Titul, 50, 50, L"Sad Farm", 160, sf::Color(100, 100, 100), 2);
   sf::String name_menu[] { L"Поле", L"Рынок", L"Выход"};
-  GameMenu first_menu(window, 950, 350, 4, name_menu, 100, 120);
+  GameMenu first_menu(window, 500, 500, 3, name_menu, 80, 80, font);
   first_menu.setColorTextMenu(sf::Color(230, 100, 0), sf::Color(100, 100, 100), sf::Color(200, 200, 200));
   first_menu.AlignMenu(2);
 

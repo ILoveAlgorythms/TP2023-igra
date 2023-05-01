@@ -6,7 +6,7 @@ class GameMenu{
   float menu_Y;				            
   int menu_Step;                    
   int max_menu;         
-  int size_font;                    
+  int size_font;                   
   int mainMenuSelected;  
   sf::Font font;                  
   sf::Text* mainMenu; 
@@ -19,7 +19,7 @@ class GameMenu{
   sf::RenderWindow& mywindow;
 
 	public:
-  GameMenu(sf::RenderWindow& window, float menux, float menuy, int index, sf::String name[], int sizeFont = 60, int step = 80);
+  GameMenu(sf::RenderWindow& window, float menux, float menuy, int index, sf::String name[], int sizeFont, int step, sf::Font font1);
   ~GameMenu() {
     delete[] mainMenu;
   }
