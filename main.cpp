@@ -30,21 +30,22 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
 };
 
 void GameStart() {
-  sf::RenderWindow Play(sf::VideoMode::getDesktopMode(), L"Menu", sf::Style::Fullscreen);
-  sf::RectangleShape background(sf::Vector2f(100, 100));
-  sf::Texture texture_play;
-  //
-  background.setTexture(&texture_play);
+  sf::RenderWindow Play(sf::VideoMode::getDesktopMode(), L"поле", sf::Style::Fullscreen);
+  Field(Play);
+  // sf::RectangleShape background(sf::Vector2f(100, 100));
+  // sf::Texture texture_play;
+  // //
+  // background.setTexture(&texture_play);
 
-  while (Play.isOpen()) {
-    sf::Event event1;
-    while (Play.pollEvent(event1)) {
-      if (event1.type == sf::Event::KeyPressed) Play.close();
-    }
-  }
-  Play.clear();
-  Play.draw(background);
-  Play.display();
+  // while (Play.isOpen()) {
+  //   sf::Event event1;
+  //   while (Play.pollEvent(event1)) {
+  //     if (event1.type == sf::Event::KeyPressed) Play.close();
+  //   }
+  // }
+  // Play.clear();
+  // Play.draw(background);
+  // Play.display();
 }
 int main() {
   sf::RenderWindow window;
@@ -74,7 +75,7 @@ int main() {
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
-            case 0: window.close(); //GameStart();
+            case 0: GameStart();
             case 1: window.close();
             // case 1: Market();
             case 2: window.close();
