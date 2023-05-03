@@ -1,24 +1,9 @@
 #include "animal.hpp"
-// #include "farm.hpp"
-// #include "game.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-// #include <fstream>
-// #include "main_menu.hpp"
 #include "field.hpp"
 #include "menu2.hpp"
 #include "menu2.cpp"
-
-
-
-
-// int main() {
-//   #pragma warning (add screen size to config file)
-// sf::RenderWindow window(sf::VideoMode(1600, 900), "Main menu of Sad Farm");
-//   window.setVerticalSyncEnabled(true);
-// 	MainMenu(window);
-//   Field(window);
-// }
 
 void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_font = 60, sf::Color menu_text_color = sf::Color::White, int bord = 0, sf::Color border_color = sf::Color::Black) {
   mtext.sf::Text::setCharacterSize(size_font);
@@ -29,42 +14,49 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
   mtext.sf::Text::setOutlineColor(border_color);
 };
 
-void Market() {
-  sf::RenderWindow TradePlatform(sf::VideoMode::getDesktopMode(), L"Рынок", sf::Style::Fullscreen);
+void Market(sf::RenderWindow& window) {
+  window.setTitle("Рынок");
+  window.setMouseCursorVisible(true);
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
   sf::Texture texture_market;
-  if (!texture_market.loadFromFile("../data/texture/market2.jpg")) return;
+  if (!texture_market.loadFromFile("../data/texture/market2.jpg")) { throw std::runtime_error("market2.jpg"); }
   background.setTexture(&texture_market);
-  while (TradePlatform.isOpen()) {
-    sf::Event event1;
-    while (TradePlatform.pollEvent(event1)) {
-      if (event1.type == sf::Event::KeyPressed) TradePlatform.close();
+  while (window.isOpen()) {
+    sf::Event event;
+    while (window.pollEvent(event)) {
+      if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Space) {
+          window.close();
+        }
+      }
     }
-    TradePlatform.clear();
-    TradePlatform.draw(background);
-    TradePlatform.display();
+    window.clear();
+    window.draw(background);
+    window.display();
   }
 }
 
-void GameStart() {
-  sf::RenderWindow Play(sf::VideoMode::getDesktopMode(), L"поле", sf::Style::Fullscreen);
-  Field(Play);
+void GameStart(sf::RenderWindow& window) {
+  window.setTitle("Поле");
+  window.setMouseCursorVisible(true);
+  Field(window);
 }
 
 int main() {
   sf::RenderWindow window;
   window.create(sf::VideoMode::getDesktopMode(), L"гама", sf::Style::Default);
+  window.setVerticalSyncEnabled(true);
   window.setMouseCursorVisible(false);
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
   sf::Texture texture_window;
-  if (!texture_window.loadFromFile("../data/texture/menu1.jpeg")) return 15;
+  if(!texture_window.loadFromFile("../data/texture/menu1.jpeg")) throw std::runtime_error("cant find menu1.jpeg");
   background.setTexture(&texture_window);
   sf::Font font;
-  if (!font.loadFromFile("../data/shrift.ttf")) return 20;
+  if (!font.loadFromFile("../data/shrift.ttf")) throw std::runtime_error("cant find font");
   sf::Text Titul;
   Titul.setFont(font);
   InitText(Titul, 50, 50, L"Sad Farm", 160, sf::Color(100, 100, 100), 2);
@@ -81,9 +73,9 @@ int main() {
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
-            case 0: GameStart();
+            case 0: GameStart(window);
             // case 1: window.close();
-            case 1: Market();
+            case 1: Market(window);
             case 2: window.close();
           }
         }
