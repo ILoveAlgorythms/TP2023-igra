@@ -15,7 +15,7 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
 };
 
 void Market(sf::RenderWindow& window) {
-  window.setTitle("Рынок");
+  window.setTitle(L"Рынок");
   window.setMouseCursorVisible(true);
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
@@ -39,7 +39,7 @@ void Market(sf::RenderWindow& window) {
 }
 
 void GameStart(sf::RenderWindow& window) {
-  window.setTitle("Поле");
+  window.setTitle(L"Поле");
   window.setMouseCursorVisible(true);
   Field(window);
 }
