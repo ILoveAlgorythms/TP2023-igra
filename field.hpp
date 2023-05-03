@@ -37,7 +37,7 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
           nextanimal = kPig;
         }
       } else if (event.type == sf::Event::MouseButtonPressed) {
-        if (event.mouseButton.button == sf::Mouse::Left) {
+        if (event.mouseButton.button == sf::Mouse::Right) {
           int x = sf::Mouse::getPosition(window).x;
           int y = sf::Mouse::getPosition(window).y;
           switch (nextanimal) {
@@ -51,14 +51,17 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
             ouranimals.push_back(new Pig(x, y));
             break;
           }
-        } else if (event.mouseButton.button == sf::Mouse::Right) {
+        } else if (event.mouseButton.button == sf::Mouse::Left) {
           int x = sf::Mouse::getPosition(window).x;
           int y = sf::Mouse::getPosition(window).y;
           for (auto i : ouranimals) {
-            if (i->GetSprite().getTextureRect().contains(x, y)) {
+            int posx = i->GetSprite().getPosition().x + i->GetSprite().getTextureRect().width / 2; 
+            int posy = i->GetSprite().getPosition().y + i->GetSprite().getTextureRect().height / 2; 
+            if ((posx - x) * (posx - x) + (posy - y) * (posy - y) < 9000) {
               player_res += i->GetResources();
             }
           }
+          std::cout << "player_res:" << player_res[Money] << "  " << player_res[Eggs] << "  " << player_res[Meat] << "  " << player_res[Milk] << "\n";
         }
       }
     }
@@ -66,7 +69,7 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
     window.draw(background);
     for (auto* i : ouranimals) {
       i->Moo();
-      i->Graze(70);
+      i->Graze(100);
       window.draw(i->GetSprite());
     }
     window.display();

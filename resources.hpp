@@ -11,7 +11,7 @@ struct Resources {
   std::vector<int> res_;
  public:
   Resources();
-  Resources(const Resources& r);
+  Resources(const Resources& r) = default;
   Resources(std::vector<int> in);
   ~Resources() = default;
   Resources& operator=(const Resources& other);

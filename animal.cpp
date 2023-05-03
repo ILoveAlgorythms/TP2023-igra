@@ -51,7 +51,8 @@ void Animal::Moo() {
   }
 }
 
-Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png"), texture_name_("cow"), frame_numbers_(8), performance({0, 0, 1}) {
+Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png"), 
+texture_name_("cow"), frame_numbers_(8), performance(std::vector<int> {0, 0, 0, 1}) {
   frames_.resize(frame_numbers_);
   for (int i = 0; i < frame_numbers_; ++i) {
     if(!frames_[i].loadFromFile("../data/texture/" + texture_name_ + std::to_string(i) + ".png")) {
@@ -60,9 +61,9 @@ Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png"), text
   }
 }
 
-Hen::Hen(int posx, int posy) : Animal(posx, posy, "snail.ogg", "hen0.png"), texture_name_("hen"), performance({2, 0, 0}) {}
+Hen::Hen(int posx, int posy) : Animal(posx, posy, "snail.ogg", "hen0.png"), texture_name_("hen"), performance(std::vector<int> {0, 0, 0, 1}) {}
 
-Pig::Pig(int posx, int posy) : Animal(posx, posy, "snail.ogg", "pig0.png"), texture_name_("pig"), performance({0, 1, 0}) {}
+Pig::Pig(int posx, int posy) : Animal(posx, posy, "snail.ogg", "pig0.png"), texture_name_("pig"), performance(std::vector<int> {0, 0, 0, 1}) {}
 
 sf::Sprite& Cow::GetSprite() {
   current_frame_number_ = (current_frame_number_ + 1) % (frame_numbers_ * 10);
@@ -79,19 +80,19 @@ sf::Sprite& Pig::GetSprite() {
 }
 
 Resources Hen::GetResources() {
-  auto ans = difftime(time(NULL), gathering_timer_) * 0.1 * performance;
+  auto ans = performance *  difftime(time(NULL), gathering_timer_);
   gathering_timer_ = time(NULL);
   return ans;
 }
 
 Resources Pig::GetResources() {
-  auto ans = difftime(time(NULL), gathering_timer_) * 0.1 * performance;
+  auto ans = performance *  difftime(time(NULL), gathering_timer_);
   gathering_timer_ = time(NULL);
   return ans;
 }
 
 Resources Cow::GetResources() {
-  auto ans = difftime(time(NULL), gathering_timer_) * 0.01 * performance;
+  auto ans = performance * difftime(time(NULL), gathering_timer_) ;
   gathering_timer_ = time(NULL);
   return ans;
 }
