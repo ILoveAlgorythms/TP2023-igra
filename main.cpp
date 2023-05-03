@@ -4,10 +4,11 @@
 #include "field.hpp"
 #include "menu2.hpp"
 #include "menu2.cpp"
+#include "resources.hpp"
 
-void FirstMenu(sf::RenderWindow& window);
-void GameStart(sf::RenderWindow& window);
-void Market(sf::RenderWindow& window);
+void FirstMenu(sf::RenderWindow& window, Resources& r);
+void GameStart(sf::RenderWindow& window, Resources& r);
+void Market(sf::RenderWindow& window, Resources& r);
 
 void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_font = 60, sf::Color menu_text_color = sf::Color::White, int bord = 0, sf::Color border_color = sf::Color::Black) {
   mtext.sf::Text::setCharacterSize(size_font);
@@ -18,7 +19,7 @@ void InitText(sf::Text& mtext, float xpos, float ypos, sf::String str, int size_
   mtext.sf::Text::setOutlineColor(border_color);
 };
 
-void Market(sf::RenderWindow& window) {
+void Market(sf::RenderWindow& window, Resources& r) {
   window.setTitle(L"Рынок");
   window.setMouseCursorVisible(true);
   float width = sf::VideoMode::getDesktopMode().width;
@@ -31,12 +32,17 @@ void Market(sf::RenderWindow& window) {
   if (!font.loadFromFile("../data/shrift.ttf")) throw std::runtime_error("cant find font");
   sf::Text Titul;
   Titul.setFont(font);
-  InitText(Titul, 50, 50, L"Монеток: 100" , 160, sf::Color(100, 100, 100), 2);
+  std::string s1 = "Money:" + std::to_string(r.res_[0]);
+  sf::String sfStr(s1);
+  InitText(Titul, 50, 50, sfStr, 160, sf::Color(100, 100, 100), 2);
   sf::String name_menu[] { L"корова 50", L"курица 10", L"в меню"};
   GameMenu first_menu(window, 500, 500, 3, name_menu, 80, 80, font);
   first_menu.setColorTextMenu(sf::Color(230, 100, 0), sf::Color(100, 100, 100), sf::Color(200, 200, 200));
   first_menu.AlignMenu(2);
   while (window.isOpen()) {
+    std::string s1 = "Money:" + std::to_string(r.res_[0]);
+    sf::String sfStr(s1);
+    InitText(Titul, 50, 50, sfStr, 160, sf::Color(100, 100, 100), 2);
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::KeyReleased) {
@@ -44,9 +50,13 @@ void Market(sf::RenderWindow& window) {
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
-            case 0: window.close();
-            case 1: window.close();
-            case 2: FirstMenu(window);
+            case 0: 
+              r.res_[0] -= 50;
+              break;
+            case 1: 
+              r.res_[0] -= 10;
+              break;
+            case 2: FirstMenu(window, r);
           }
         }
       }
@@ -59,13 +69,13 @@ void Market(sf::RenderWindow& window) {
   }
 }
 
-void GameStart(sf::RenderWindow& window) {
+void GameStart(sf::RenderWindow& window, Resources& r) {
   window.setTitle(L"Поле");
   window.setMouseCursorVisible(true);
-  Field(window);
+  Field(window, r);
 }
 
-void FirstMenu(sf::RenderWindow& window) {
+void FirstMenu(sf::RenderWindow& window, Resources& r) {
   window.create(sf::VideoMode::getDesktopMode(), L"гама", sf::Style::Default);
   window.setVerticalSyncEnabled(true);
   window.setMouseCursorVisible(false);
@@ -92,8 +102,8 @@ void FirstMenu(sf::RenderWindow& window) {
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
-            case 0: GameStart(window);
-            case 1: Market(window);
+            case 0: GameStart(window, r);
+            case 1: Market(window, r);
             case 2: window.close();
           }
         }
@@ -107,8 +117,10 @@ void FirstMenu(sf::RenderWindow& window) {
   }
 }
 int main() {
+  Resources r;
+  r.res_[0] = 100;
   sf::RenderWindow window;
-  FirstMenu(window);
+  FirstMenu(window, r);
 }
 
 

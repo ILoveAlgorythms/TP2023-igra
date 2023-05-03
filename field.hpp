@@ -7,7 +7,7 @@
 // #include "main_menu.hpp"
 // #include "legacy_snail.hpp"
 
-void Field(sf::RenderWindow& window) {
+void Field(sf::RenderWindow& window, Resources& r) {
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
