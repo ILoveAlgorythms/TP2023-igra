@@ -32,27 +32,25 @@ class Animal {
   std::string name_;
   Resources anim_res_;
   Gender gender_ = Male;
-  sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
+  sf::SoundBuffer sound_buffer_;
   std::string sound_name_;
-  sf::Sound moo_; // через это звук проигрывается
+  sf::Sound moo_; // sound
   double moo_probability_ = 1;
 
   std::string texture_name_;
   double max_step_ = 3;
-  sf::Texture skin_; // в эту штуку загружаем изображение
-  sf::Sprite soul_; // сущность, которая будет отрисовываться 
+  sf::Texture skin_; 
+  sf::Sprite soul_; 
 
-  std::random_device _dev_; // штука для рандомайзера
+  std::random_device _dev_; //for randomizer
   std::mt19937 _rng_;
   std::uniform_int_distribution<std::mt19937::result_type> _dist_;
 };
 
 class Pig : public Animal {
-  //anim_res.res_[Money] = 50;
 };
 
 class Hen : public Animal {
-  //anim_res.res_[Money] = 10; 
 };
 
 class Cow : public Animal {
@@ -60,8 +58,6 @@ class Cow : public Animal {
   Cow(int posx, int posy);
   sf::Sprite& GetSprite() override;
  private:
-  // std::string texture_name_ = "cow1.png";
-  // std::string sound_name_ = "cow.wav";
   std::vector<sf::Texture> frames_;
   int current_frame_number_ = 0;
 };
