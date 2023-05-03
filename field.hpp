@@ -7,7 +7,7 @@
 // #include "main_menu.hpp"
 // #include "legacy_snail.hpp"
 
-void Field(sf::RenderWindow& window) {
+void Field(sf::RenderWindow& window, Resources& player_res) {
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
@@ -15,7 +15,9 @@ void Field(sf::RenderWindow& window) {
   if (!texture_market.loadFromFile("../data/texture/field.jpg")) { throw std::runtime_error("cant find field.jpg"); }
   background.setTexture(&texture_market);
 
-  std::vector<Cow*> bigFatCows;
+  std::vector<Animal*> ouranimals;
+  enum AnimalType {kCow, kHen, kPig};
+  AnimalType nextanimal = kCow;
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
@@ -23,30 +25,53 @@ void Field(sf::RenderWindow& window) {
         window.close();
       } else if (event.type == sf::Event::KeyPressed) { // тут вроде по названию понятно
         if (event.key.code == sf::Keyboard::G) {
-          delete bigFatCows.back();
-          bigFatCows.pop_back();
+          delete ouranimals.back();
+          ouranimals.pop_back();
         } else if (event.key.code == sf::Keyboard::Enter) {
           window.close();
+        } else if (event.key.code == sf::Keyboard::Q) {
+          nextanimal = kCow;
+        } else if (event.key.code == sf::Keyboard::W) {
+          nextanimal = kHen;
+        } else if (event.key.code == sf::Keyboard::E) {
+          nextanimal = kPig;
         }
       } else if (event.type == sf::Event::MouseButtonPressed) {
         if (event.mouseButton.button == sf::Mouse::Left) {
           int x = sf::Mouse::getPosition(window).x;
           int y = sf::Mouse::getPosition(window).y;
-          bigFatCows.push_back(new Cow(x, y));
+          switch (nextanimal) {
+          case kCow:
+            ouranimals.push_back(new Cow(x, y));
+            break;
+          case kHen:
+            ouranimals.push_back(new Hen(x, y));
+            break;
+          case kPig:
+            ouranimals.push_back(new Pig(x, y));
+            break;
+          }
+        } else if (event.mouseButton.button == sf::Mouse::Right) {
+          int x = sf::Mouse::getPosition(window).x;
+          int y = sf::Mouse::getPosition(window).y;
+          for (auto i : ouranimals) {
+            if (i->GetSprite().getTextureRect().contains(x, y)) {
+              player_res += i->GetResources();
+            }
+          }
         }
       }
     }
     window.clear();
     window.draw(background);
-    for (auto* i : bigFatCows) {
+    for (auto* i : ouranimals) {
       i->Moo();
-      i->Graze(90);
+      i->Graze(70);
       window.draw(i->GetSprite());
     }
     window.display();
   }
-  for(auto* i: bigFatCows) {
+  for(auto* i: ouranimals) {
     delete i;
   }
-  return;
 }

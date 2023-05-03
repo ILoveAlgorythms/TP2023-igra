@@ -15,7 +15,7 @@ void Animal::Feed() {
 
 Animal::Animal(int posx, int posy, std::string sound_name, 
 std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
- sound_name_(sound_name), texture_name_(texture_name) { // устанавливаем диапазон рандомайзера
+ sound_name_(sound_name), texture_name_(texture_name), gathering_timer_(time(NULL)) { // устанавливаем диапазон рандомайзера
   std::cout << "hello";
   if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
     throw "cant load sound";
@@ -29,6 +29,7 @@ std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
   
   soul_.setPosition(sf::Vector2f(posx, posy));
 }
+
 void Animal::Graze(unsigned long int probability=100) { // probability form 0 to 100
   int x;
   std::pair<int, int> Pos = {soul_.getPosition().x, soul_.getPosition().y};
@@ -43,26 +44,54 @@ void Animal::Graze(unsigned long int probability=100) { // probability form 0 to
   }
   soul_.setPosition(sf::Vector2f(Pos.first, Pos.second)); // устанавливаем координаты у спрайта
 }
+
 void Animal::Moo() {
   if (moo_probability_ > double(_dist_(_rng_))) {
     moo_.play();
   }
 }
 
-
-Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png") {
-  frames_.resize(8);
-  for (int i = 0; i < 8; ++i) {
-    // .loadFromFile("../data/texture/cow" + std::to_string(i) + ".png");
-    if(!frames_[i].loadFromFile("../data/texture/cow" + std::to_string(i) + ".png")) {
-      throw "cant load texture";
+Cow::Cow(int posx, int posy) : Animal(posx, posy, "snail.ogg", "cow1.png"), texture_name_("cow"), frame_numbers_(8), performance({0, 0, 1}) {
+  frames_.resize(frame_numbers_);
+  for (int i = 0; i < frame_numbers_; ++i) {
+    if(!frames_[i].loadFromFile("../data/texture/" + texture_name_ + std::to_string(i) + ".png")) {
+      throw "cant load texture";  
     }
   }
-  soul_.setScale(0.2, 0.2);
 }
 
+Hen::Hen(int posx, int posy) : Animal(posx, posy, "snail.ogg", "hen0.png"), texture_name_("hen"), performance({2, 0, 0}) {}
+
+Pig::Pig(int posx, int posy) : Animal(posx, posy, "snail.ogg", "pig0.png"), texture_name_("pig"), performance({0, 1, 0}) {}
+
 sf::Sprite& Cow::GetSprite() {
-  current_frame_number_ = (current_frame_number_ + 1) % (8 * 10);
+  current_frame_number_ = (current_frame_number_ + 1) % (frame_numbers_ * 10);
   soul_.setTexture(frames_[current_frame_number_ / 10]);
   return soul_;
+}
+
+  // sf::Sprite& Hen::GetSprite() {
+  //   return Animal::GetSprite();
+  // }
+
+sf::Sprite& Pig::GetSprite() {
+  return Animal::GetSprite();
+}
+
+Resources Hen::GetResources() {
+  auto ans = difftime(time(NULL), gathering_timer_) * 0.1 * performance;
+  gathering_timer_ = time(NULL);
+  return ans;
+}
+
+Resources Pig::GetResources() {
+  auto ans = difftime(time(NULL), gathering_timer_) * 0.1 * performance;
+  gathering_timer_ = time(NULL);
+  return ans;
+}
+
+Resources Cow::GetResources() {
+  auto ans = difftime(time(NULL), gathering_timer_) * 0.01 * performance;
+  gathering_timer_ = time(NULL);
+  return ans;
 }

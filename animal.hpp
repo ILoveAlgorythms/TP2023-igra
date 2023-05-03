@@ -25,13 +25,15 @@ class Animal {
   virtual sf::Sprite& GetSprite() { return soul_; }
   virtual std::string GetTexture() { return texture_name_; }
   virtual std::string GetSound() { return sound_name_; }
-
+  virtual Resources GetResources();
  protected:
-  int time_ = 0;
+  time_t gathering_timer_; // last gathering
+  time_t feeding_timer_; // last feeding
   int bellyful_ = 0;
   std::string name_;
   Resources anim_res_;
   Gender gender_ = Male;
+
   sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
   std::string sound_name_;
   sf::Sound moo_; // через это звук проигрывается
@@ -48,20 +50,34 @@ class Animal {
 };
 
 class Pig : public Animal {
-  //anim_res.res_[Money] = 50;
+ public:
+  Pig(int posx, int posy);
+  Resources GetResources() override;
+  sf::Sprite& GetSprite() override;
+ private:
+  Resources performance;
+  std::string texture_name_;
 };
 
+
 class Hen : public Animal {
-  //anim_res.res_[Money] = 10; 
+ public:
+  Hen(int posx, int posy);
+  Resources GetResources() override;
+ private:
+  Resources performance;
+  std::string texture_name_;
 };
 
 class Cow : public Animal {
  public:
   Cow(int posx, int posy);
-  sf::Sprite& GetSprite() override;
+  Resources GetResources() override;
+  sf::Sprite& GetSprite();
  private:
-  // std::string texture_name_ = "cow1.png";
-  // std::string sound_name_ = "cow.wav";
+  Resources performance;
+  int frame_numbers_;
+  std::string texture_name_;
   std::vector<sf::Texture> frames_;
   int current_frame_number_ = 0;
 };
