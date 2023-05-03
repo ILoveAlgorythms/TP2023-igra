@@ -1,6 +1,7 @@
 #include "animal.hpp"
 #include "resources.hpp"
 #include "farm.hpp"
+#include <cmath>
 
 int medim_level_of_bellyful_ = 2;
 int max_level_of_bellyful_ = 5;
@@ -31,18 +32,20 @@ std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
 }
 
 void Animal::Graze(unsigned long int probability=100) { // probability form 0 to 100
-  int x;
+  float width = sf::VideoMode::getDesktopMode().width;
+  float height = sf::VideoMode::getDesktopMode().height;
   std::pair<int, int> Pos = {soul_.getPosition().x, soul_.getPosition().y};
   if (probability > _dist_(_rng_)) {
-    for (int i = 0; i < 2; ++i) {
-      x = int(_dist_(_rng_) - 5000) * max_step_ * 0.01;
-      if ((Pos.first + x > 10) && (Pos.first + x < 800)) {
-        Pos.first += x;
-      }
-      std::swap(Pos.first, Pos.second);
+    if ((Pos.first - width / 2) * (Pos.first - width / 2) + 
+        (Pos.second - height / 2) * (Pos.second - height / 2) > height * height * 0.8) {
+      Pos = {Pos.first + copysign(max_step_ + 10, -Pos.first + width / 2),
+              Pos.second + copysign(max_step_ + 10, -Pos.second + height / 2)};
+    } else {
+      Pos = {Pos.first + int(_dist_(_rng_) - 5000) * max_step_ * 0.01, 
+             Pos.second + int(_dist_(_rng_) - 5000) * max_step_ * 0.01};
     }
   }
-  soul_.setPosition(sf::Vector2f(Pos.first, Pos.second)); // set the coordinates of the sprite
+  soul_.setPosition(sf::Vector2f(Pos.first, Pos.second));
 }
 
 void Animal::Moo() {

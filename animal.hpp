@@ -25,7 +25,7 @@ class Animal {
   virtual sf::Sprite& GetSprite() { return soul_; }
   virtual std::string GetTexture() { return texture_name_; }
   virtual std::string GetSound() { return sound_name_; }
-  virtual Resources GetResources() {}
+  virtual Resources GetResources() { return Resources({0, 0, 0, 0}); }
  protected:
   time_t gathering_timer_; // last gathering
   time_t feeding_timer_; // last feeding

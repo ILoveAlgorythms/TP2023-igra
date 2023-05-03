@@ -1,13 +1,9 @@
 #include "animal.hpp"
-// #include "farm.hpp"
-// #include "game.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-// #include <fstream>
-// #include "main_menu.hpp"
-// #include "legacy_snail.hpp"
+#pragma once
 
-void Field(sf::RenderWindow& window, Resources& player_res) {
+void Field(sf::RenderWindow& window, Resources& player_res, std::vector<Animal*>& ouranimals) {
   float width = sf::VideoMode::getDesktopMode().width;
   float height = sf::VideoMode::getDesktopMode().height;
   sf::RectangleShape background(sf::Vector2f(width, height));
@@ -15,7 +11,6 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
   if (!texture_market.loadFromFile("../data/texture/field.jpg")) { throw std::runtime_error("cant find field.jpg"); }
   background.setTexture(&texture_market);
 
-  std::vector<Animal*> ouranimals;
   enum AnimalType {kCow, kHen, kPig};
   AnimalType nextanimal = kCow;
   while (window.isOpen()) {
@@ -28,7 +23,7 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
           delete ouranimals.back();
           ouranimals.pop_back();
         } else if (event.key.code == sf::Keyboard::Enter) {
-          window.close();
+          return;
         } else if (event.key.code == sf::Keyboard::Q) {
           nextanimal = kCow;
         } else if (event.key.code == sf::Keyboard::W) {
@@ -73,8 +68,5 @@ void Field(sf::RenderWindow& window, Resources& player_res) {
       window.draw(i->GetSprite());
     }
     window.display();
-  }
-  for(auto* i: ouranimals) {
-    delete i;
   }
 }
