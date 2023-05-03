@@ -35,8 +35,8 @@ void Market(sf::RenderWindow& window, Resources& r) {
   std::string s1 = "Money:" + std::to_string(r.res_[0]);
   sf::String sfStr(s1);
   InitText(Titul, 50, 50, sfStr, 160, sf::Color(100, 100, 100), 2);
-  sf::String name_menu[] { L"корова 50", L"курица 10", L"в меню"};
-  GameMenu first_menu(window, 500, 500, 3, name_menu, 80, 80, font);
+  sf::String name_menu[] { L"корова 50", L"свинка 20", L"попугай 0", L"в меню"};
+  GameMenu first_menu(window, 400, 400, 4, name_menu, 60, 60, font);
   first_menu.setColorTextMenu(sf::Color(230, 100, 0), sf::Color(100, 100, 100), sf::Color(200, 200, 200));
   first_menu.AlignMenu(2);
   while (window.isOpen()) {
@@ -51,12 +51,15 @@ void Market(sf::RenderWindow& window, Resources& r) {
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
             case 0: 
-              r.res_[0] -= 50;
+              r.res_[Money] -= 50;
               break;
             case 1: 
-              r.res_[0] -= 10;
+              r.res_[Money] -= 20;
               break;
-            case 2: FirstMenu(window, r);
+            case 2:
+              break;
+            case 3: 
+              FirstMenu(window, r);
           }
         }
       }
@@ -118,7 +121,7 @@ void FirstMenu(sf::RenderWindow& window, Resources& r) {
 }
 int main() {
   Resources r;
-  r.res_[0] = 100;
+  r.res_[Money] = 500;
   sf::RenderWindow window;
   FirstMenu(window, r);
 }

@@ -19,7 +19,7 @@ void Game::Menu() {
         }
       }
     }
-    window.clear(); // стираем окно
+    window.clear();
     for (auto* i : tinyLitlleSnails) {
       i->Moo();
       i->Graze(9);
