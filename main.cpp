@@ -100,7 +100,6 @@ void Banya(sf::RenderWindow& window, Resources& r) {
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::KeyReleased) {
         return;
-        // FirstMenu(window, r, ouranimals);
       }
     }
     window.clear();

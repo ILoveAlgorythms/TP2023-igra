@@ -32,7 +32,6 @@ void GameMenu::AlignMenu(int posx) {
 
 GameMenu::GameMenu(sf::RenderWindow& window, float menux, float menuy, int index, sf::String name[], int sizeFont, int step, sf::Font font1) :
 mywindow(window), menu_X(menux), menu_Y(menuy), size_font(sizeFont), menu_Step(step), font(font1) {
-	// if (!font.loadFromFile("font/troika.otf")) exit(32);
   max_menu = index;
   mainMenu = new sf::Text[max_menu];
 	for (int i = 0, ypos = menu_Y; i < max_menu; i++, ypos += menu_Step)

@@ -5,13 +5,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdlib> 
-// #include <ctime> 
 #include <random> 
 #include <fstream>
 #include <iostream>
 #include <vector>
-
-// enum TypeOfAnimals { Hen, Cow, Pig };
 
 enum Gender { Male, Female };
 
@@ -43,7 +40,7 @@ class Animal {
   sf::Texture skin_; 
   sf::Sprite soul_; 
 
-  std::random_device _dev_; //for randomizer
+  std::random_device _dev_;
   std::mt19937 _rng_;
   std::uniform_int_distribution<std::mt19937::result_type> _dist_;
 };

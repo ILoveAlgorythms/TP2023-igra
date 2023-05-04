@@ -18,7 +18,7 @@ void Field(sf::RenderWindow& window, Resources& player_res, std::vector<Animal*>
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::Closed) {
         window.close();
-      } else if (event.type == sf::Event::KeyPressed) { // тут вроде по названию понятно
+      } else if (event.type == sf::Event::KeyPressed) { 
         if (event.key.code == sf::Keyboard::G) {
           delete ouranimals.back();
           ouranimals.pop_back();
