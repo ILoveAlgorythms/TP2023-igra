@@ -1,0 +1,7 @@
+*.log
+
+.vscode/
+output/
+test.cpp
+build/
+.DS_Store
