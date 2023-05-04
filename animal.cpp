@@ -35,12 +35,10 @@ std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
 }
 
 void Animal::Graze(unsigned long int probability=100) { // probability form 0 to 100
-  // float width = sf::VideoMode::getDesktopMode().width;
-  // float height = sf::VideoMode::getDesktopMode().height;
   std::pair<int, int> Pos = {soul_.getPosition().x, soul_.getPosition().y};
   if (probability > _dist_(_rng_)) {
     if ((Pos.first - kWidth / 2) * (Pos.first - kWidth / 2) + 
-        (Pos.second - kHeight / 2) * (Pos.second -kHeight / 2) > kHeight * kHeight * 0.8) {
+        (Pos.second - kHeight / 2) * (Pos.second - kHeight / 2) > kHeight * kHeight * 0.05) {
       Pos = {Pos.first + copysign(max_step_ + 10, -Pos.first + kWidth / 2),
               Pos.second + copysign(max_step_ + 10, -Pos.second + kHeight / 2)};
     } else {
@@ -67,9 +65,9 @@ texture_name_("cow"), frame_numbers_(8), performance(std::vector<int> {0, 0, 0, 
   }
 }
 
-Hen::Hen(int posx, int posy) : Animal(posx, posy, "snail.ogg", "hen0.png"), texture_name_("hen"), performance(std::vector<int> {0, 0, 0, 1}) {}
+Hen::Hen(int posx, int posy) : Animal(posx, posy, "hen.ogg", "hen0.png"), texture_name_("hen"), performance(std::vector<int> {0, 0, 0, 1}) {}
 
-Pig::Pig(int posx, int posy) : Animal(posx, posy, "snail.ogg", "pig0.png"), texture_name_("pig"), performance(std::vector<int> {0, 0, 0, 1}) {}
+Pig::Pig(int posx, int posy) : Animal(posx, posy, "pig.ogg", "pig0.png"), texture_name_("pig"), performance(std::vector<int> {0, 0, 0, 1}) {}
 
 sf::Sprite& Cow::GetSprite() {
   current_frame_number_ = (current_frame_number_ + 1) % (frame_numbers_ * 10);

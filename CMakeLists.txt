@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
-add_executable(SadFarm main.cpp animal.cpp farm.cpp  market.hpp resources.hpp
-animal.hpp  farm.hpp  market.cpp resources.cpp main_menu.hpp field.hpp)
+add_executable(SadFarm main.cpp animal.cpp farm.cpp resources.hpp
+animal.hpp  farm.hpp resources.cpp main_menu.hpp field.hpp)
 
 target_link_libraries(SadFarm sfml-graphics sfml-audio)

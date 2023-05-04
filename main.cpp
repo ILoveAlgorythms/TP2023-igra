@@ -28,9 +28,7 @@ void Market(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ourani
   window.setTitle(L"Рынок");
   window.setMouseCursorVisible(true);
 
-  float width = sf::VideoMode::getDesktopMode().width;
-  float height = sf::VideoMode::getDesktopMode().height;
-  sf::RectangleShape background(sf::Vector2f(width, height));
+  sf::RectangleShape background(sf::Vector2f(kWidth, kHeight));
   sf::Texture texture_market;
   if (!texture_market.loadFromFile("../data/texture/market2.jpg")) { throw std::runtime_error("market2.jpg"); }
   background.setTexture(&texture_market);
@@ -53,24 +51,24 @@ void Market(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ourani
     InitText(Titul, 50, 50, sfStr, 160, sf::Color(100, 100, 100), 2);
     sf::Event event;
     while (window.pollEvent(event)) {
-      if (event.type == sf::Event::KeyReleased) {
+      if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Up) first_menu.MoveUp();
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
             case 0: 
               r.res_[Money] -= 50;
-              ouranimals.push_back(new Cow(int(height * (float(random())/RAND_MAX * 0.4 + 0.3)), 
-                                           int(width  * (float(random())/RAND_MAX * 0.4 + 0.3))));
+              ouranimals.push_back(new Cow(int(610 + kWidth / 2 + 900 * (random()/RAND_MAX - 0.5)), 
+                                           int(-14 + kHeight  / 2 + 900 * (random()/RAND_MAX - 0.5))));
               break;
             case 1: 
               r.res_[Money] -= 20;
-              ouranimals.push_back(new Pig(int(height * (float(random())/RAND_MAX * 0.4 + 0.3)), 
-                                           int(width  * (float(random())/RAND_MAX * 0.4 + 0.3))));
+              ouranimals.push_back(new Pig(int(50 + kWidth / 2 + 900 * (random()/RAND_MAX - 0.5)), 
+                                           int(kHeight  / 2 + 900 * (random()/RAND_MAX - 0.5))));
               break;
             case 2:
-              ouranimals.push_back(new Hen(int(height * (float(random())/RAND_MAX * 0.4 + 0.3)), 
-                                           int(width  * (float(random())/RAND_MAX * 0.4 + 0.3))));
+              ouranimals.push_back(new Hen(int(330 + kWidth / 2 + 900 * (random()/RAND_MAX - 0.5)), 
+                                           int(-69 + kHeight  / 2 + 900 * (random()/RAND_MAX - 0.5))));
               break;
             case 3: 
               FirstMenu(window, r, ouranimals);
@@ -100,7 +98,7 @@ void Banya(sf::RenderWindow& window, Resources& r) {
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
-      if (event.type == sf::Event::KeyReleased) {
+      if (event.type == sf::Event::KeyPressed) {
         return;
       }
     }
@@ -140,16 +138,21 @@ void FirstMenu(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& our
     sf::Event event;
     while (window.pollEvent(event)) {
       if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::Up) first_menu.MoveUp();
-        if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
+        if (event.key.code == sf::Keyboard::Up) { first_menu.MoveUp(); }
+        if (event.key.code == sf::Keyboard::Down) { first_menu.MoveDown(); }
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
             case 0: 
               GameStart(window, r, ouranimals);
               break;
-            case 1: Market(window, r, ouranimals); break;
-            case 2: Banya(window, r); break;
-            case 3: window.close();
+            case 1: 
+              Market(window, r, ouranimals); 
+              break;
+            case 2: 
+              Banya(window, r); 
+              break;
+            case 3: 
+              window.close();
           }
         }
       }

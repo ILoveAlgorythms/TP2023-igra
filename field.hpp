@@ -64,7 +64,7 @@ void Field(sf::RenderWindow& window, Resources& player_res, std::vector<Animal*>
     window.draw(background);
     for (auto* i : ouranimals) {
       i->Moo();
-      i->Graze(100);
+      i->Graze(60);
       window.draw(i->GetSprite());
     }
     window.display();

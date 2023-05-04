@@ -33,10 +33,10 @@ class Animal {
   sf::SoundBuffer sound_buffer_;
   std::string sound_name_;
   sf::Sound moo_; // sound
-  double moo_probability_ = 1;
+  double moo_probability_ = 90;
 
   std::string texture_name_;
-  double max_step_ = 3;
+  double max_step_ = 30;
   sf::Texture skin_; 
   sf::Sprite soul_; 
 
