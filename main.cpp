@@ -5,6 +5,10 @@
 #include "menu2.hpp"
 #include "menu2.cpp"
 #include "resources.hpp"
+#include <fstream>
+
+const float kWidth = sf::VideoMode::getDesktopMode().width;
+const float kHeight = sf::VideoMode::getDesktopMode().height;
 
 void FirstMenu(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ouranimals);
 void GameStart(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ouranimals);
@@ -84,9 +88,7 @@ void Market(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ourani
 
 void Banya(sf::RenderWindow& window, Resources& r) {
   window.setTitle(L"Баня");
-  float width = sf::VideoMode::getDesktopMode().width;
-  float height = sf::VideoMode::getDesktopMode().height;
-  sf::RectangleShape background(sf::Vector2f(width, height));
+  sf::RectangleShape background(sf::Vector2f(kWidth, kHeight));
   sf::Texture texture_market;
   if (!texture_market.loadFromFile("../data/texture/banya.jpg")) { throw std::runtime_error("market2.jpg"); }
   background.setTexture(&texture_market);
@@ -118,9 +120,7 @@ void GameStart(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& our
 void FirstMenu(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& ouranimals) {
   window.setMouseCursorVisible(false);
 
-  float width = sf::VideoMode::getDesktopMode().width;
-  float height = sf::VideoMode::getDesktopMode().height;
-  sf::RectangleShape background(sf::Vector2f(width, height));
+  sf::RectangleShape background(sf::Vector2f(kWidth, kHeight));
   sf::Texture texture_window;
   if(!texture_window.loadFromFile("../data/texture/menu1.jpeg")) throw std::runtime_error("cant find menu1.jpeg");
   background.setTexture(&texture_window);
@@ -139,12 +139,14 @@ void FirstMenu(sf::RenderWindow& window, Resources& r, std::vector<Animal*>& our
   while (window.isOpen()) {
     sf::Event event;
     while (window.pollEvent(event)) {
-      if (event.type == sf::Event::KeyReleased) {
+      if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Up) first_menu.MoveUp();
         if (event.key.code == sf::Keyboard::Down) first_menu.MoveDown();
         if (event.key.code == sf::Keyboard::Return) {
           switch (first_menu.getSelectedMenuNumber()) {
-            case 0: GameStart(window, r, ouranimals); break;
+            case 0: 
+              GameStart(window, r, ouranimals);
+              break;
             case 1: Market(window, r, ouranimals); break;
             case 2: Banya(window, r); break;
             case 3: window.close();

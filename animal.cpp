@@ -3,6 +3,9 @@
 #include "farm.hpp"
 #include <cmath>
 
+const float kWidth = sf::VideoMode::getDesktopMode().width;
+const float kHeight = sf::VideoMode::getDesktopMode().height;
+
 int medim_level_of_bellyful_ = 2;
 int max_level_of_bellyful_ = 5;
 
@@ -32,14 +35,14 @@ std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
 }
 
 void Animal::Graze(unsigned long int probability=100) { // probability form 0 to 100
-  float width = sf::VideoMode::getDesktopMode().width;
-  float height = sf::VideoMode::getDesktopMode().height;
+  // float width = sf::VideoMode::getDesktopMode().width;
+  // float height = sf::VideoMode::getDesktopMode().height;
   std::pair<int, int> Pos = {soul_.getPosition().x, soul_.getPosition().y};
   if (probability > _dist_(_rng_)) {
-    if ((Pos.first - width / 2) * (Pos.first - width / 2) + 
-        (Pos.second - height / 2) * (Pos.second - height / 2) > height * height * 0.8) {
-      Pos = {Pos.first + copysign(max_step_ + 10, -Pos.first + width / 2),
-              Pos.second + copysign(max_step_ + 10, -Pos.second + height / 2)};
+    if ((Pos.first - kWidth / 2) * (Pos.first - kWidth / 2) + 
+        (Pos.second - kHeight / 2) * (Pos.second -kHeight / 2) > kHeight * kHeight * 0.8) {
+      Pos = {Pos.first + copysign(max_step_ + 10, -Pos.first + kWidth / 2),
+              Pos.second + copysign(max_step_ + 10, -Pos.second + kHeight / 2)};
     } else {
       Pos = {Pos.first + int(_dist_(_rng_) - 5000) * max_step_ * 0.01, 
              Pos.second + int(_dist_(_rng_) - 5000) * max_step_ * 0.01};
