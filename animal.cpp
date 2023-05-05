@@ -20,7 +20,6 @@ void Animal::Feed() {
 Animal::Animal(int posx, int posy, std::string sound_name, 
 std::string texture_name) : _rng_(_dev_()), _dist_(0, 10000),
  sound_name_(sound_name), texture_name_(texture_name), gathering_timer_(time(NULL)) {
- std::cout << "hello";
   if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
     throw "cant load sound";
   }
