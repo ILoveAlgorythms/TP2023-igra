@@ -5,13 +5,10 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdlib> 
-// #include <ctime> 
 #include <random> 
 #include <fstream>
 #include <iostream>
 #include <vector>
-
-// enum TypeOfAnimals { Hen, Cow, Pig };
 
 enum Gender { Male, Female };
 
@@ -25,43 +22,58 @@ class Animal {
   virtual sf::Sprite& GetSprite() { return soul_; }
   virtual std::string GetTexture() { return texture_name_; }
   virtual std::string GetSound() { return sound_name_; }
-
+  virtual Resources GetResources() { return Resources({0, 0, 0, 0}); }
  protected:
-  int time_ = 0;
+  time_t gathering_timer_; // last gathering
+  time_t feeding_timer_; // last feeding
   int bellyful_ = 0;
   std::string name_;
   Resources anim_res_;
   Gender gender_ = Male;
-  sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
+  sf::SoundBuffer sound_buffer_;
   std::string sound_name_;
-  sf::Sound moo_; // через это звук проигрывается
-  double moo_probability_ = 1;
+  sf::Sound moo_; // sound
+  double moo_probability_ = 90;
 
   std::string texture_name_;
-  double max_step_ = 3;
-  sf::Texture skin_; // в эту штуку загружаем изображение
-  sf::Sprite soul_; // сущность, которая будет отрисовываться 
+  double max_step_ = 30;
+  sf::Texture skin_; 
+  sf::Sprite soul_; 
 
-  std::random_device _dev_; // штука для рандомайзера
+  std::random_device _dev_;
   std::mt19937 _rng_;
   std::uniform_int_distribution<std::mt19937::result_type> _dist_;
 };
 
 class Pig : public Animal {
-  //anim_res.res_[Money] = 50;
+ public:
+  Pig(int posx, int posy);
+  Resources GetResources() override;
+  sf::Sprite& GetSprite() override;
+ private:
+  Resources performance;
+  std::string texture_name_;
 };
 
+
 class Hen : public Animal {
-  //anim_res.res_[Money] = 10; 
+ public:
+  Hen(int posx, int posy);
+  Resources GetResources() override;
+ private:
+  Resources performance;
+  std::string texture_name_;
 };
 
 class Cow : public Animal {
  public:
   Cow(int posx, int posy);
-  sf::Sprite& GetSprite() override;
+  Resources GetResources() override;
+  sf::Sprite& GetSprite();
  private:
-  // std::string texture_name_ = "cow1.png";
-  // std::string sound_name_ = "cow.wav";
+  Resources performance;
+  int frame_numbers_;
+  std::string texture_name_;
   std::vector<sf::Texture> frames_;
   int current_frame_number_ = 0;
 };

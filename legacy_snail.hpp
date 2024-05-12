@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <cstdlib> 
-// #include <ctime> 
 #include <random> 
 #include <fstream>
 #include <iostream>
@@ -13,16 +12,16 @@
 
 class Snail {
  public:
-  Snail(int posx=0, int posy=0) : _rng_(_dev_()), _dist_(0, 10000) { // устанавливаем диапазон рандомайзера
+  Snail(int posx=0, int posy=0) : _rng_(_dev_()), _dist_(0, 10000) {
     if(!sound_buffer_.loadFromFile("../data/audio/" + sound_name_)) {
       throw "cant load sound";
     }
-    moo_.setBuffer(sound_buffer_); // устанавливаем, что будем проигрывать
+    moo_.setBuffer(sound_buffer_);
 
     if(!skin_.loadFromFile("../data/texture/" + texture_name_)) {
       throw "cant load texture";
     }
-    soul_.setTexture(skin_); // устанавливаем текстуру спрайту
+    soul_.setTexture(skin_); 
     
     soul_.setPosition(sf::Vector2f(posx, posy));
   }
@@ -38,7 +37,7 @@ class Snail {
         std::swap(Pos.first, Pos.second);
       }
     }
-    soul_.setPosition(sf::Vector2f(Pos.first, Pos.second)); // устанавливаем координаты у спрайта
+    soul_.setPosition(sf::Vector2f(Pos.first, Pos.second));
   }
   void Moo() {
     if (moo_probability_ > double(_dist_(_rng_))) {
@@ -56,17 +55,17 @@ class Snail {
     return sound_name_;
   }
  private:
-  sf::SoundBuffer sound_buffer_; // сюда загружается звук (файлом), буфер
+  sf::SoundBuffer sound_buffer_;
   std::string sound_name_ = "snail.ogg";
-  sf::Sound moo_; // через это звук проигрывается
+  sf::Sound moo_;
   double moo_probability_ = 1;
 
   std::string texture_name_ = "snail on the hillside.png";
   double max_step_ = 3;
-  sf::Texture skin_; // в эту штуку загружаем изображение
-  sf::Sprite soul_; // сущность, которая будет отрисовываться 
+  sf::Texture skin_;
+  sf::Sprite soul_;  
 
-  std::random_device _dev_; // штука для рандомайзера
+  std::random_device _dev_;
   std::mt19937 _rng_;
   std::uniform_int_distribution<std::mt19937::result_type> _dist_;
 
